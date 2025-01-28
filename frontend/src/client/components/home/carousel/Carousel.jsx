@@ -34,14 +34,6 @@ function Carousel() {
     setActiveStep(step);
   };
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => (prevActiveStep + 1) % maxSteps);
-  };
-
-  const handleBack = () => {
-    setActiveStep((prevActiveStep) => (prevActiveStep - 1 + maxSteps) % maxSteps);
-  };
-
   return (
     <Box
       sx={{
@@ -71,7 +63,7 @@ function Carousel() {
           index={activeStep}
           onChangeIndex={handleStepChange}
           enableMouseEvents
-          interval={5000} // 5 seconds between slides
+          interval={5000} 
         >
           {carouselItems.map((step, index) => (
             <div key={step.label}>
@@ -97,24 +89,13 @@ function Carousel() {
           ))}
         </AutoPlaySwipeableViews>
 
-        <MobileStepper
+        {/* <MobileStepper
           steps={maxSteps}
           position="static"
           activeStep={activeStep}
           sx={{ backgroundColor: 'transparent', mt: 2 }}
-          nextButton={
-            <Button size="small" onClick={handleNext} disabled={activeStep === maxSteps - 1}>
-              Next
-              <KeyboardArrowRight />
-            </Button>
-          }
-          backButton={
-            <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-              <KeyboardArrowLeft />
-              Back
-            </Button>
-          }
-        />
+         
+        /> */}
       </Box>
     </Box>
   );

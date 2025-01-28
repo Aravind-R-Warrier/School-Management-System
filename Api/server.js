@@ -3,7 +3,10 @@ const express=require('express')
 const cors=require('cors')
 const mongoose=require('mongoose')
 const cookieParser=require('cookie-parser')
+
+// router imports
 const schoolRouter=require('./routers/school.router')
+const classRouter=require('./routers/class.router')
 
 const app=express()
 // middleware
@@ -28,6 +31,7 @@ app.get('/',(req,res)=>{
 
 // router
 app.use('/api/school',schoolRouter)
+app.use('/api/class',classRouter)
 
 const PORT=process.env.PORT || 3000
 app.listen(PORT,()=>{

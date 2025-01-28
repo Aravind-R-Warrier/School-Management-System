@@ -7,9 +7,15 @@ import axios from 'axios';
 import { loginSchema } from '../../../yupSchema/login';
 import { toast } from 'react-toastify'
 import ParticlesBg from 'particles-bg';
+import { AuthContext } from '../../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { baseApi } from '../../../environment';
 
 
 export default function Login() {
+  const navigate=useNavigate()
+      const {logIn}=React.useContext(AuthContext)
+  
   const initialValues = {
     email: '',
     password: '',
@@ -24,7 +30,7 @@ export default function Login() {
 
 
       axios
-        .post('http://localhost:5000/api/school/login', { ...values })
+        .post(`${baseApi}/school/login`, { ...values })
         .then((res) => {
           const token = res.headers.get('Autharisation')
           if (token) {
@@ -33,11 +39,13 @@ export default function Login() {
           const user = res.data.user
           if (user) {
             sessionStorage.setItem('user', JSON.stringify(user))
+            logIn(user)
           }
 
           console.log(res);
           toast.success('login successfully');
           formik.resetForm();
+          navigate('/school')
         })
         .catch((err) => {
           console.log(err);

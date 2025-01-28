@@ -102,7 +102,7 @@ module.exports = {
     getSchoolOwnData: async (req, res) => {
         try {
             const id = req.user.id;
-            const school = await School.findById({ _id: id });
+            const school = await School.findOne({ _id: id }).select('-password');
             if (school) {
                 res.status(200).json({ success: true, message: 'school own data successfull', school })
             } else {
@@ -114,44 +114,53 @@ module.exports = {
         }
     },
 
-    updateSchool: async (req, res) => {
-        try {
-            const id = req.user.id;
-            const form = new formidable.IncomingForm()
-            form.parse(req, async (err, fields, files) => {
-                const school=await School.findOne({_id:id});
-                if(files.image){
-                    const photo = files.image[0]
-                    let filePath = photo.filepath;
-                    let originalFileName = photo.originalFilename.replace(" ", "_")
+   updateSchool: async (req, res) => {
+    try {
+      const id = req.user.id; 
+      const form = new formidable.IncomingForm();
 
-                    if(school.school_image){
-                        let oldImagePath=path.join(__dirname, SCHOOL_IMAGE_PATH, originalFileName,school.school_image)
-                        if(fs.existsSync(oldImagePath)){
-                            fs.unlink(oldImagePath,(err)=>{
-                                if(err){
-                                    console.log('error deleting old image',err)
-                                }
-                            })
-                        }
-                    }
-                    let newPath = path.join(__dirname, SCHOOL_IMAGE_PATH, originalFileName)
-                    let photoData = fs.readFileSync(filePath)
-                    fs.writeFileSync(newPath, photoData)
-
-                    Object.keys(fields).forEach((field)=>{
-                        school[field]=fields[field][0]
-                    })
-                    await school.save()
-
-                    res.status(200).json({success:true,message:'updated successFully',school})
-                }
-               
-
-            })
-        } catch (error) {
-            res.status(500).json({ success: false, message: 'school reg failed', error })
+      form.parse(req, async (err, fields, files) => {
+        if (err) {
+          return res.status(400).json({ success: false, message: 'Form parsing error', error: err });
         }
 
+        const school = await School.findOne({ _id: id });
+        if (!school) {
+          return res.status(404).json({ success: false, message: 'School not found' });
+        }
+
+        if (files.image) {
+          const photo = files.image[0];
+          const filePath = photo.filepath;
+          const uniqueFileName = `${Date.now()}_${photo.originalFilename.replace(/ /g, '_')}`;
+
+          // Delete the old image if it exists
+          if (school.school_image) {
+            const oldImagePath = path.join(__dirname, process.env.SCHOOL_IMAGE_PATH, school.school_image);
+            if (fs.existsSync(oldImagePath)) {
+              fs.unlinkSync(oldImagePath);
+            }
+          }
+
+          // Save the new image
+          const newPath = path.join(__dirname, process.env.SCHOOL_IMAGE_PATH, uniqueFileName);
+          const photoData = fs.readFileSync(filePath);
+          fs.writeFileSync(newPath, photoData);
+
+          school.school_image = uniqueFileName; // Update the school image field
+        }
+
+        // Update other fields
+        if (fields.school_name) {
+          school.school_name = fields.school_name[0];
+        }
+
+        await school.save(); // Save the updated school document
+
+        res.status(200).json({ success: true, message: 'School updated successfully', school });
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, message: 'School update failed', error });
     }
+  },
 }

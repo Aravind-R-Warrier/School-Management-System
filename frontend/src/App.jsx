@@ -28,10 +28,11 @@ import ExaminationStudent from './student/components/examinations/ExaminationStu
 import NoticeStudent from './student/components/notice/NoticeStudent.jsx'
 import StudentDetails from './student/components/studentDetails/StudentDetails.jsx'
 import ProtectRoute from './gaurd/protectRoute.jsx'
+import { AuthProvider } from './context/AuthContext.jsx'
 
 function App() {
   return (
-    <>
+    <AuthProvider>
     
       <BrowserRouter>
         <Routes>
@@ -77,7 +78,7 @@ function App() {
 
         </Routes>
       </BrowserRouter>
-    </>
+    </AuthProvider>
   )
 }
 

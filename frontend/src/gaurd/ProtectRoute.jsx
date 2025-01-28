@@ -1,21 +1,29 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
+import { AuthContext } from '../context/AuthContext'
 
 function ProtectRoute({children,allowRoles=[]}) {
-    const userRole='TEACHER'
-    const authenticated=true
+    const {user,authenticated}=useContext(AuthContext)
+    const[check,setCheck]=useState(false)
 
-    if(!authenticated){
+
+    useEffect(()=>{
+      setCheck(true)
+    },[])
+
+    if(check && !authenticated){
         return <Navigate to={'/login'}/>
     }
 
-    if(allowRoles && !allowRoles.includes(userRole)) return <Navigate to={'/login'}/>
-
-  return (
-    <div>
-      {children}
-    </div>
-  )
+    if(check && allowRoles && !allowRoles.includes(user.role)) return <Navigate to={'/login'}/>
+    if(check){
+      return (
+        <div>
+          {children}
+        </div>
+      )
+    }
+  
 }
 
 export default ProtectRoute

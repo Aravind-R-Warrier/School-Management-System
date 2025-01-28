@@ -7,6 +7,7 @@ import { Button, CardMedia, Typography, Paper } from '@mui/material';
 import axios from 'axios';
 import { toast} from 'react-toastify'
 import ParticlesBg from 'particles-bg';
+import { baseApi } from '../../../environment';
 
 export default function Register() {
   const initialValues = {
@@ -48,7 +49,7 @@ export default function Register() {
         fd.append('email', values.email);
 
         axios
-          .post('http://localhost:5000/api/school/register', fd)
+          .post(`${baseApi}/school/register`, fd)
           .then((res) => {
             console.log(res);
             toast.success('School registered successfully');
@@ -74,7 +75,6 @@ export default function Register() {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
-        // background: 'url(https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGJvb2t8ZW58MHx8MHx8fDA%3D)',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
