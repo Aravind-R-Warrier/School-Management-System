@@ -7,6 +7,7 @@ const cookieParser=require('cookie-parser')
 // router imports
 const schoolRouter=require('./routers/school.router')
 const classRouter=require('./routers/class.router')
+const subjectRouter=require('./routers/subject.router')
 
 const app=express()
 // middleware
@@ -32,6 +33,7 @@ app.get('/',(req,res)=>{
 // router
 app.use('/api/school',schoolRouter)
 app.use('/api/class',classRouter)
+app.use('/api/subject',subjectRouter)
 
 const PORT=process.env.PORT || 3000
 app.listen(PORT,()=>{

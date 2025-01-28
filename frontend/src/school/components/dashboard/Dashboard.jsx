@@ -114,7 +114,7 @@ function Dashboard() {
 
             <TextField
               variant="outlined"
-             sx={{marginTop:'8px'}}
+             sx={{marginTop:'8px',fontFamily: 'Courier New' }}
              label='School Name'
               fullWidth
               value={schoolName}
@@ -140,7 +140,7 @@ function Dashboard() {
             position: 'relative',
           }}
         >
-          <Typography variant="h2" style={{ color: 'black' }}>
+          <Typography variant="h2" style={{ color: 'black',fontFamily:'Courier New' }}>
             {school.school_name}
           </Typography>
           <Box

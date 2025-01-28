@@ -5,25 +5,69 @@ import React, { useEffect, useState } from 'react'
 import { classSchema } from '../../../yupSchema/classSchema'
 import { baseApi } from '../../../environment'
 import { toast} from 'react-toastify'
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function Class() {
   const [classes,setClasses]=useState([])
+  const [edit,setEdit]=useState(false)
+  const [editId,setEditId]=useState(null)
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(`${baseApi}/class/delete/${id}`);
+      toast.success(response.data.message);
+      fetchAllClasses(); 
+    } catch (err) {
+      console.error('Error deleting class:', err);
+      toast.error(err.response?.data?.message || 'Error deleting class');
+    }
+  };
+  
+
+const handleEdit=(id,class_text,class_num)=>{
+  console.log(id)
+  setEdit(true)
+  formik.setFieldValue('class_text',class_text)
+  formik.setFieldValue('class_num',class_num)
+  setEditId(id)
+}
+const cancelEdit=()=>{
+  setEditId(null)
+  setEdit(false)
+  formik.setFieldValue('class_text',"")
+  formik.setFieldValue('class_num',"")
+}
 
   const formik=useFormik({
     initialValues:{class_text:'',class_num:''},
     validationSchema:classSchema,
     onSubmit:(values)=>{
-      // api
-      axios.post(`${baseApi}/class/create`,{...values}).then(res=>{
-        console.log(res)
-        toast.success('class added successfully')
-      }).catch((err)=>{
-        console.log(err)
-        toast.error(err)
-      })
-      formik.resetForm()
-    }
+      // api for creation and edit
+      if(edit){
+        axios.patch(`${baseApi}/class/update/${editId}`,{...values}).then(res=>{
+          console.log(res)
+          toast.success('class Edited successfully')
+        }).catch((err)=>{
+          console.log(err,'error in updating')
+          toast.error(err,'error in Editing')
+        })
+        formik.resetForm()
+
+      }else{
+        axios.post(`${baseApi}/class/create`,{...values}).then(res=>{
+          console.log(res)
+          toast.success('class added successfully')
+        }).catch((err)=>{
+          console.log(err)
+          toast.error(err)
+        })
+        formik.resetForm()
+      }
+
+
+     }     
     
   })
 
@@ -37,17 +81,17 @@ const fetchAllClasses=async(req,res)=>{
 
   useEffect(()=>{
     fetchAllClasses()
-  },[])
+  },[formik])
 
   return (
-    <>
+    <div style={{background:'#024950'}}>
       <Box
       component="div"
       sx={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '80vh',
+        minHeight: '60vh',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
@@ -62,7 +106,7 @@ const fetchAllClasses=async(req,res)=>{
           margin: 'auto',
           // maxWidth: '550px',
           width:'60vw',
-          backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+          backgroundColor: "rgba(255, 255, 255, 0.9)",
           backdropFilter: 'blur(5px)'
         }}
       >
@@ -78,9 +122,14 @@ const fetchAllClasses=async(req,res)=>{
           onSubmit={formik.handleSubmit}
           autoComplete="off"
         >
-          <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800' }}>
+          {
+            edit?  <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800',fontFamily:'Courier New' }}>
+            Edit Class
+           </Typography>:  <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800',fontFamily:'Courier New' }}>
            Add Class
           </Typography>
+          }
+        
 
 
           <TextField
@@ -97,9 +146,8 @@ const fetchAllClasses=async(req,res)=>{
 
           <TextField
             name="class_num"
-            label="class in number"
+            label="class division"
             variant="outlined"
-            type='number'
             fullWidth
             value={formik.values.class_num}
             onChange={formik.handleChange}
@@ -109,9 +157,9 @@ const fetchAllClasses=async(req,res)=>{
           />
 
 
-          <Button
+<Button
             type="submit"
-            variant="contained"
+            style={{background:'#036E66'}}
             size="large"
             sx={{
               width: '100%',
@@ -119,24 +167,47 @@ const fetchAllClasses=async(req,res)=>{
               color: '#fff',
               ':hover': { backgroundColor: '#115293' },
             }}
+            
           >
             Submit
           </Button>
+{edit&&
+  <Button
+            type="submit"
+            variant="outlined"
+            size="large"
+            sx={{
+              width: '100%',
+              backgroundColor: '#9999',
+              color: 'black',
+              ':hover': { backgroundColor: '#115293' },
+            }}
+            onClick={()=>cancelEdit()}
+          >
+           cancel
+          </Button>}
+
         </Box>
       </Paper>
     </Box>
 
     {/* class display */}
+    <h2 style={{fontFamily:'Courier New',color:'skyblue',textAlign:'center'}}>Added Classes</h2>
     <Box component={'div'} sx={{display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
       {
+        
         classes&&classes.map(item=>{
-          return <Box key={item._id}>
-            <Typography>Class: {item.class_text} [{item.class_num}]</Typography>
-          </Box>
+          return <Paper key={item._id} sx={{border:'1px black solid',margin:'20px',p:2}}>
+         <Box component={'div'}><Typography variant='h5'>Class: {item.class_text} [{item.class_num}]</Typography></Box> 
+         <Box component={'div'}>
+        <Button onClick={()=>handleEdit(item._id,item.class_text,item.class_num)}><EditIcon/></Button>
+        <Button onClick={()=>handleDelete(item._id)}><DeleteIcon/></Button>
+         </Box>
+          </Paper>
         })
       }
     </Box>
-    </>
+    </div>
   )
 }
 

@@ -3,7 +3,7 @@ const AuthMiddleware=require('../auth/auth')
 const { createClass, getAllCLasses, updateClassWithId, deleteClassWithId } = require('../controllers/class.controller')
 const router=express.Router()
 
-// register
+// create
 router.post('/create',AuthMiddleware(['SCHOOL']),createClass)
 
 // getallStudent

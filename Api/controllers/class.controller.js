@@ -43,7 +43,7 @@ module.exports={
    updateClassWithId:async(req,res)=>{
     try {
         let id=req.params.id
-        await Class.findByIdAndUpdate({_id:id}),{$set:{...req.body}}
+        await Class.findByIdAndUpdate(id,{$set:{...req.body}})
         const classAfterUpdate=await Class.findById({_id:id})
         res.status(200).json({success:true,message:'class updated',data:classAfterUpdate})
     } catch (error) {
@@ -53,25 +53,29 @@ module.exports={
     }
    },
 
-   deleteClassWithId:async(req,res)=>{  
+   deleteClassWithId: async (req, res) => {
     try {
-        let id=req.params.id
-        let schoolId=req.user.schoolId
-
-        const classStudentCount=(await Student.find({student_class:id,school:schoolId})).length
-        const classExamCount=(await Exam.find({class:id,school:schoolId})).length
-        const classScheduleCount=(await Schedule.find({class:id,school:schoolId})).length
-
-        if((classExamCount===0) && (classScheduleCount===0) && (classStudentCount===0)){
-            await Class.findByIdAndDelete({_id:id,school:schoolId})
-            res.json(200).json({success:true,message:'deleted class successFully'})
-        }else{
-            res.status(500).json({success:false,message:'class already in use'})
-        }
+      const id = req.params.id;
+      const schoolId = req.user.schoolId;
+  
+      // Check related records
+      const classStudentCount = await Student.countDocuments({ student_class: id, school: schoolId });
+      const classExamCount = await Exam.countDocuments({ class: id, school: schoolId });
+      const classScheduleCount = await Schedule.countDocuments({ class: id, school: schoolId });
+  
+      // Check if the class is in use
+      if (classExamCount === 0 && classScheduleCount === 0 && classStudentCount === 0) {
+        await Class.findOneAndDelete({ _id: id, school: schoolId });
+        return res.status(200).json({ success: true, message: 'Class deleted successfully' });
+      } else {
+        return res.status(400).json({ success: false, message: 'Class is in use and cannot be deleted' });
+      }
     } catch (error) {
-        res.status(500).json({success:false,message:'server error on deleting class'})
+      console.error('Error deleting class:', error); 
+      return res.status(500).json({ success: false, message: 'Server error while deleting class', error: error.message });
     }
-   }
+  }
+  
 
 
 }
