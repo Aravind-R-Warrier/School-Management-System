@@ -154,7 +154,7 @@ const navigate=useNavigate()
   // import RecentActorsIcon from '@mui/icons-material/RecentActors';
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex',background:'linear-gradient(to right, #024950, #027368)',height:'100%'}}>
       <CssBaseline />
     <AppBar position="fixed" open={open} sx={{backgroundColor: '#086a78' }}>
         <Toolbar>

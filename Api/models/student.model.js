@@ -1,10 +1,10 @@
 const mongoose=require('mongoose')
 
 const studentSchema=new mongoose.Schema({
-    name:{type:mongoose.Schema.ObjectId,ref:'School'},
+    school:{type:mongoose.Schema.ObjectId,ref:'School'},
     name:{type:String,required:true},
     email:{type:String,required:true},
-    student_class:{type:String,required:true},
+    student_class:{type:mongoose.Schema.ObjectId,ref:'Class'},
     age:{type:String,required:true},
     gender:{type:String,required:true},
     guardian:{type:String,required:true},
