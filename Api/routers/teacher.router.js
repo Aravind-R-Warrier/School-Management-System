@@ -6,7 +6,7 @@ const router=express.Router()
 // register
 router.post('/register',AuthMiddleware(['SCHOOL']),registerTeacher)
 
-// getallStudent
+// getallTeacher
 router.get('/fetch-with-query',AuthMiddleware(['SCHOOL']),getTeacherWithQuery)
 
 // login
@@ -15,14 +15,14 @@ router.post('/login',loginTeacher)
 // update
 router.patch('/update/:id',AuthMiddleware(['SCHOOL']),updateTeacher)//Authenticated for update
 
-// getOneStudent
+// getOneTeacher
 
 router.get('/fetch-single',AuthMiddleware(['STUDENT']),getTeacherOwnData)
 
 router.get('/fetch/:id',AuthMiddleware(['SCHOOL']),getTeacherWithId)
 
 
-// deleteStudent
+// deleteTeacher
 
 router.delete('/delete/:id', AuthMiddleware(['SCHOOL']), deleteTeacherWithId);
 
