@@ -1,16 +1,25 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+  TextField,
+} from "@mui/material";
 import { periodSchema } from "../../../yupSchema/periodSchema";
 import { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { baseApi } from "../../../environment";
-
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 
-export default function SheduleEvents({ onClose }) {
+export default function ScheduleEvents({ selectedClass, handleClose, edit, selectedEventId }) {
   const periods = [
     { id: 1, label: "Period 1 (10:00 AM - 11:00 AM)", startTime: "10:00", endTime: "11:00" },
     { id: 2, label: "Period 2 (11:00 AM - 12:00 PM)", startTime: "11:00", endTime: "12:00" },
@@ -42,12 +51,31 @@ export default function SheduleEvents({ onClose }) {
       teacher: "",
       subject: "",
       period: "",
-      date: null,
+      date: new Date(),
     },
     validationSchema: periodSchema,
     onSubmit: (values) => {
-      console.log("Form Submitted:", values);
-      onClose(); // Close modal/dialog after submission
+      let date = new Date(values.date);
+      let [startTime, endTime] = values.period.split(",");
+
+      let BACKEND_URL = edit ? `${baseApi}/schedule/update/${selectedEventId}` : `${baseApi}/schedule/create`;
+
+      axios
+        .post(BACKEND_URL, {
+          ...values,
+          selectedClass,
+          startTime: new Date(date.setHours(startTime.split(":")[0], startTime.split(":")[1])),
+          endTime: new Date(date.setHours(endTime.split(":")[0], endTime.split(":")[1])),
+        })
+        .then((res) => {
+          toast.success(res.data.message);
+          formik.resetForm();
+          handleClose();
+        })
+        .catch((err) => {
+          console.error(err);
+          toast.error("Error in creating Schedule");
+        });
     },
   });
 
@@ -58,83 +86,79 @@ export default function SheduleEvents({ onClose }) {
         display: "flex",
         flexDirection: "column",
         gap: 3,
-        p: 3,
-        width: "400px",
-        backgroundColor:'white'
+        p: 4,
+        width: "450px",
+        backgroundColor: "#f9f9f9",
+        borderRadius: "8px",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        fontFamily:'New Courier'
       }}
-      noValidate
       onSubmit={formik.handleSubmit}
     >
-      <Typography variant="h5">Schedule Event</Typography>
+      <Typography variant="h5" align="center" sx={{ fontWeight: "bold", color: "#333" }}>
+        {edit ? "Edit Period" : "Add New Period"}
+      </Typography>
 
-      {/* Teacher Selection */}
-      <FormControl fullWidth error={formik.touched.teacher && Boolean(formik.errors.teacher)}>
-        <InputLabel>Teachers</InputLabel>
-        <Select
-          value={formik.values.teacher}
-          name="teacher"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        >
+      <FormControl fullWidth>
+        <InputLabel>Teacher</InputLabel>
+        <Select value={formik.values.teacher} name="teacher" onChange={formik.handleChange}>
           {teachers.map((item) => (
             <MenuItem key={item._id} value={item._id}>
               {item.name}
             </MenuItem>
           ))}
         </Select>
-        {formik.touched.teacher && <Typography color="error">{formik.errors.teacher}</Typography>}
       </FormControl>
 
-      {/* Subject Selection */}
-      <FormControl fullWidth error={formik.touched.subject && Boolean(formik.errors.subject)}>
-        <InputLabel>Subjects</InputLabel>
-        <Select
-          value={formik.values.subject}
-          name="subject"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        >
+      <FormControl fullWidth>
+        <InputLabel>Subject</InputLabel>
+        <Select value={formik.values.subject} name="subject" onChange={formik.handleChange}>
           {subjects.map((item) => (
             <MenuItem key={item._id} value={item._id}>
               {item.subject_name}
             </MenuItem>
           ))}
         </Select>
-        {formik.touched.subject && <Typography color="error">{formik.errors.subject}</Typography>}
       </FormControl>
 
-      {/* Period Selection */}
-      <FormControl fullWidth error={formik.touched.period && Boolean(formik.errors.period)}>
+      <FormControl fullWidth>
         <InputLabel>Period</InputLabel>
-        <Select
-          value={formik.values.period}
-          name="period"
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-        >
+        <Select value={formik.values.period} name="period" onChange={formik.handleChange}>
           {periods.map((item) => (
             <MenuItem key={item.id} value={`${item.startTime},${item.endTime}`}>
               {item.label}
             </MenuItem>
           ))}
         </Select>
-        {formik.touched.period && <Typography color="error">{formik.errors.period}</Typography>}
       </FormControl>
 
-      {/* Date Picker */}
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           label="Select Date"
           value={formik.values.date ? dayjs(formik.values.date) : null}
-          onChange={(newDate) => formik.setFieldValue("date", newDate)}
+          onChange={(newValue) => formik.setFieldValue("date", newValue)}
           renderInput={(params) => <TextField {...params} fullWidth />}
         />
-        {formik.touched.date && <Typography color="error">{formik.errors.date}</Typography>}
       </LocalizationProvider>
 
-      {/* Submit Button */}
-      <Button variant="contained" color="primary" type="submit">
-        Submit
+      <Box display="flex" justifyContent="space-between">
+        <Button variant="contained" color="primary" type="submit" fullWidth>
+          Submit
+        </Button>
+        {edit && (
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#FF5252", color: "white", ml: 1 }}
+            onClick={() => confirm("Are you sure?") && axios.delete(`${baseApi}/schedule/delete/${selectedEventId}`).then(() => { toast.success("Deleted successfully"); handleClose(); })}
+            fullWidth
+          >
+            Delete
+          </Button>
+        )}
+      </Box>
+
+      <Button variant="outlined" color="secondary" onClick={handleClose} fullWidth>
+        Cancel
       </Button>
     </Box>
   );
