@@ -1,8 +1,9 @@
 const mongoose=require('mongoose')
 
+
 const attendenceSchema=new mongoose.Schema({
     school:{type:mongoose.Schema.ObjectId,ref:'School'},
-    student:{ype:mongoose.Schema.ObjectId,ref:'Student'},
+    student:{type:mongoose.Schema.ObjectId,ref:'Student'},
     class:{type:mongoose.Schema.ObjectId,ref:'Class'},
     date:{type:Date,required:true},
     status:{type:String,enum:['Present','Absent'],default:'Absent'},

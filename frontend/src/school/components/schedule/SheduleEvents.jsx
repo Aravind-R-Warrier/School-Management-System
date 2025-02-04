@@ -58,6 +58,7 @@ export default function ScheduleEvents({ selectedClass, handleClose, edit, selec
       let date = new Date(values.date);
       let [startTime, endTime] = values.period.split(",");
 
+      // changing url if it is edit (used (post )for both)
       let BACKEND_URL = edit ? `${baseApi}/schedule/update/${selectedEventId}` : `${baseApi}/schedule/create`;
 
       axios
