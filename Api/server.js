@@ -12,6 +12,7 @@ const studentRouter=require('./routers/student.router')
 const teacherRouter=require('./routers/teacher.router')
 const scheduleRouter=require('./routers/schedule.router')
 const attendenceRouter=require('./routers/attendence.router')
+const examinationRouter=require('./routers/examination.router')
 
 const app=express()
 // middleware
@@ -42,6 +43,7 @@ app.use('/api/student',studentRouter)
 app.use('/api/teacher',teacherRouter)
 app.use('/api/schedule',scheduleRouter)
 app.use('/api/attendence',attendenceRouter)
+app.use('/api/examination',examinationRouter)
 
 const PORT=process.env.PORT || 3000
 app.listen(PORT,()=>{

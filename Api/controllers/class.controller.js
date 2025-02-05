@@ -22,6 +22,17 @@ module.exports={
 
        }
     },
+    getSingleClass:async(req,res)=>{
+       try {
+        const schoolId=req.user.schoolId
+        const classId=req.params.id
+        const classs=await Class.findOne({school:schoolId,_id:classId}).populate("attendee")
+        res.status(200).json({success:true,message:'succussfully fetched single class',data:classs})
+       } catch (error) {
+        res.status(500).json({success:false,message:'server error on getting class'})
+
+       }
+    },
 
     createClass:async(req,res)=>{
         try {

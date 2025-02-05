@@ -29,7 +29,7 @@ module.exports={
         try {
             const {studentId}=req.params
             const attendence=await Attendence.find({student:studentId}).populate('student')
-            res.status(200).json({success:'true',message:'successFully retrieved attendence',attendence})
+            res.status(200).json(attendence)
 
         } catch (error) {
             res.status(500).json({success:true,message:'Attendence failed to get',error})

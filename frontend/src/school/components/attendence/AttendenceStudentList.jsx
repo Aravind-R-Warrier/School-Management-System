@@ -8,6 +8,7 @@ import { baseApi } from '../../../environment';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid2';
 import Attendee from './Attendee';
+import { Link } from 'react-router-dom';
 
 // Styled Grid
 const Item = styled(Paper)(({ theme }) => ({
@@ -86,6 +87,8 @@ export default function AttendenceStudentList() {
   };
   
 
+
+
   return (
     <div style={{ background: 'linear-gradient(to right, #024950, #027368)' }}>
       <Typography sx={{ textAlign: 'center', fontSize: '36px', fontFamily: 'new courier' }}>
@@ -152,7 +155,7 @@ export default function AttendenceStudentList() {
                         <TableCell align="right">{student.guardian_phone}</TableCell>
                         <TableCell align="right">{student.student_class?.class_text || 'N/A'}</TableCell>
                         <TableCell align="right">{attendenceData[student._id] !== undefined ? `${attendenceData[student._id].toFixed(2)}%` : 'No Data'}</TableCell>
-                        <TableCell align="right">View</TableCell>
+                        <TableCell align="right"><Link to={`/school/attendence/${student._id}`}>Details</Link></TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

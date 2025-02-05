@@ -29,6 +29,7 @@ import StudentDetails from './student/components/studentDetails/StudentDetails.j
 import ProtectRoute from './gaurd/protectRoute.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import AttendenceStudentList from './school/components/attendence/AttendenceStudentList.jsx'
+import AttendenceDetails from './school/components/attendence/AttendenceDetails.jsx'
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='attendence' element={<AttendenceStudentList />} />
+            <Route path='attendence/:id' element={<AttendenceDetails />} />
             <Route path='class' element={<Class />} />
             <Route path='examinations' element={<Examination />} />
             <Route path='notice' element={<Notice />} />
