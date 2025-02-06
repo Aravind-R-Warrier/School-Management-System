@@ -13,7 +13,7 @@ router.get('/all',AuthMiddleware(['SCHOOL']),getAllExamination)
 router.get('/class/:id',AuthMiddleware(['SCHOOL','STUDENT','TEACHER']),getExaminationByClass)
 
 // update
-router.patch('/update/:id',AuthMiddleware(['SCHOOL']),updateExaminationWithId)//Authenticated for update
+router.post('/update/:id',AuthMiddleware(['SCHOOL']),updateExaminationWithId)//Authenticated for update
 
 // deleteExam
 

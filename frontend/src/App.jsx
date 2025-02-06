@@ -30,6 +30,7 @@ import ProtectRoute from './gaurd/protectRoute.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import AttendenceStudentList from './school/components/attendence/AttendenceStudentList.jsx'
 import AttendenceDetails from './school/components/attendence/AttendenceDetails.jsx'
+import Logout from './client/components/logout/Logout.jsx'
 
 function App() {
   return (
@@ -75,6 +76,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
+            <Route path='logout' element={<Logout />} />
           </Route>
 
 

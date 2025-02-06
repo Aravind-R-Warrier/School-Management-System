@@ -32,6 +32,7 @@ import {Outlet, useNavigate} from 'react-router-dom'
   import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
   import EventIcon from '@mui/icons-material/Event';
   import HomeIcon from '@mui/icons-material/Home';
+  import LogoutIcon from '@mui/icons-material/Logout';
 
 const drawerWidth = 240;
 
@@ -126,7 +127,7 @@ export default function School() {
   };
 
   const navArray=[
-      {link:'/',component:"home",icon:HomeIcon},
+      {link:'/',component:"Home",icon:HomeIcon},
     {link:'/school',component:"Dashboard",icon:DashboardCustomizeIcon},
     {link:'/school/class',component:"Class",icon:FormatListNumberedIcon},
     {link:'/school/subjects',component:"Subjects",icon:SubjectIcon},
@@ -136,6 +137,7 @@ export default function School() {
     {link:'/school/attendence',component:"Attendence",icon:RecentActorsIcon}, 
     {link:'/school/examinations',component:"Examination",icon:ExplicitIcon}, 
     {link:'/school/notice',component:"Notice",icon:NotificationsIcon}, 
+    {link:'/logout',component:"Logout",icon:LogoutIcon}, 
   ]
 const navigate=useNavigate()
 

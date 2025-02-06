@@ -33,7 +33,7 @@ module.exports = {
         try {
             const schoolId = req.user.schoolId
             classId = req.params.id
-            const examination = await Examination.find({ class: classId, school: schoolId })
+            const examination = await Examination.find({ class: classId, school: schoolId }).populate('subject')
             res.status(200).json({ success: true, examination })
         } catch (error) {
             res.status(500).json({ success: false, message: 'error in fetching all examinations' })
