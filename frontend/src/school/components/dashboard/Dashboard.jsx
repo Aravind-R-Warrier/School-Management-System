@@ -55,6 +55,7 @@ function Dashboard() {
     axios.patch(`${baseApi}/school/update`,fd).then(res=>{
       // console.log('school edit:',res)
       toast.success('Edit Successfull')
+      fetchSchool();
       handleCancelEdit()
     }).catch((err)=>{
       console.log(err)
@@ -69,7 +70,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchSchool();
-  }, [handleEditSubmit]);
+  }, []);
 
   return (
     <>

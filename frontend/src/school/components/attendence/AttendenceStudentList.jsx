@@ -90,7 +90,7 @@ export default function AttendenceStudentList() {
 
 
   return (
-    <div style={{ background: 'linear-gradient(to right, #024950, #027368)' }}>
+    <div >
       <Typography sx={{ textAlign: 'center', fontSize: '36px', fontFamily: 'new courier' }}>
         Student Attendance
       </Typography>

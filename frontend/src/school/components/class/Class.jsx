@@ -84,7 +84,7 @@ const fetchAllClasses=async(req,res)=>{
   },[formik])
 
   return (
-    <div style={{background:'linear-gradient(to right, #024950, #027368)'}}>
+    <div style={{}}>
       <Box
       component="div"
       sx={{

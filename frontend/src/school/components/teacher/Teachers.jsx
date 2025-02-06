@@ -215,7 +215,7 @@ fetchTeachers()
 
 
   return (
-    <div style={{background: 'linear-gradient(to right, #024950, #027368)'}}>
+    <div >
     <Box
       component="div"
       sx={{

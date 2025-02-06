@@ -73,7 +73,7 @@ function Subjects() {
   });
 
   return (
-    <Box sx={{ p: 4, background:'linear-gradient(to right, #024950, #027368)', minHeight: '100vh' }}>
+    <Box sx={{ p: 4, minHeight: '100vh' }}>
       <Paper elevation={4} sx={{ maxWidth: 600, mx: 'auto', p: 3, borderRadius: 2 }}>
         <Typography variant="h5" fontWeight={700} textAlign="center" fontFamily='Courier New' gutterBottom>
           {edit ? 'Edit Subject' : 'Add Subject'}
@@ -112,7 +112,7 @@ function Subjects() {
         </Box>
       </Paper>
 
-      <Typography variant="h5" textAlign="center" fontWeight={700} mt={4} fontFamily='Courier New' color='lavender' gutterBottom>
+      <Typography variant="h5" textAlign="center" fontWeight={700} mt={4} fontFamily='Courier New' color='Sky' gutterBottom>
         Added Subjects
       </Typography>
       <Grid container spacing={3} justifyContent="center">
