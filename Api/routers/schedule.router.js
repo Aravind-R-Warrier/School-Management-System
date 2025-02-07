@@ -7,7 +7,7 @@ const router=express.Router()
 router.post('/create',AuthMiddleware(['SCHOOL']),createSchedule)
 
 // getschedulewitheachClass
-router.get('/fetch-with-class/:id',AuthMiddleware(['SCHOOL']),getScheduleByClass)
+router.get('/fetch-with-class/:id',AuthMiddleware(['SCHOOL','TEACHER']),getScheduleByClass)
 
 // update
 router.post('/update/:id',AuthMiddleware(['SCHOOL']),updateScheduleWithId)//Authenticated for update

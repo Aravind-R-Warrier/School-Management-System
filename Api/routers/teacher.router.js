@@ -17,7 +17,7 @@ router.patch('/update/:id',AuthMiddleware(['SCHOOL']),updateTeacher)//Authentica
 
 // getOneTeacher
 
-router.get('/fetch-single',AuthMiddleware(['STUDENT']),getTeacherOwnData)
+router.get('/fetch-single',AuthMiddleware(['TEACHER']),getTeacherOwnData)
 
 router.get('/fetch/:id',AuthMiddleware(['SCHOOL']),getTeacherWithId)
 

@@ -6,10 +6,13 @@ const router=express.Router()
 // create
 router.post('/mark',AuthMiddleware(['TEACHER']),markAttendence)
 
+// check
+router.get('/check/:classId',AuthMiddleware(['SCHOOL','TEACHER']),checkAttendence)
+
 // getattendence
 router.get('/:studentId',AuthMiddleware(['SCHOOL']),getAttendence)
 
-router.get('/check/:classId',AuthMiddleware(['SCHOOL']),checkAttendence)
+
 
 
 

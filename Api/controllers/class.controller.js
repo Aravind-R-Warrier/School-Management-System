@@ -34,6 +34,18 @@ module.exports={
        }
     },
 
+    getAttendee:async(req,res)=>{
+       try {
+        const schoolId=req.user.schoolId
+        const attendeeId=req.user.id
+        const classs=await Class.find({school:schoolId,attendee:attendeeId})
+        res.status(200).json({success:true,message:'succussfully fetched Attendee class',data:classs})
+       } catch (error) {
+        res.status(500).json({success:false,message:'server error on Attendee class'})
+
+       }
+    },
+
     createClass:async(req,res)=>{
         try {
             const newClass=new Class({

@@ -113,7 +113,7 @@ const[editId,setEditId]=React.useState(null)
             toast.error(err.response.data.message);
           });
       }else{
-        toast.error('please upload school Image');
+        toast.error('please upload student image');
 
       }
     }

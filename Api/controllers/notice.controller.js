@@ -16,6 +16,26 @@ module.exports={
 
        }
     },
+    getAllNoticesForTeacher:async(req,res)=>{
+       try {
+        const schoolId=req.user.schoolId
+        const allNotices=await Notice.find({school:schoolId,audience:'Teacher'})
+        res.status(200).json({success:true,message:'succussfully fetched notices',data:allNotices})
+       } catch (error) {
+        res.status(500).json({success:false,message:'server error on getting notices'})
+
+       }
+    },
+    getAllNoticesForStudents:async(req,res)=>{
+       try {
+        const schoolId=req.user.schoolId
+        const allNotices=await Notice.find({school:schoolId,audience:'Students'})
+        res.status(200).json({success:true,message:'succussfully fetched notices',data:allNotices})
+       } catch (error) {
+        res.status(500).json({success:false,message:'server error on getting notices'})
+
+       }
+    },
 
     createNotice:async(req,res)=>{
         try {

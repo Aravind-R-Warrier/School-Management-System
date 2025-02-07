@@ -1,7 +1,7 @@
 import *as yup from 'yup'
 
 export const studentSchema = yup.object({
-    name: yup.string().min(3, "Student Name Must Contain 3 Letters").required("School name is Required"),
+    name: yup.string().min(3, "Student Name Must Contain 3 Letters").required("Student name is Required"),
     email: yup.string().email("It Must Be An Email").required("Email is Required"),
     student_class: yup.string().required('Student class is required'),
     age: yup.number().required('Age is required field'),
@@ -15,7 +15,7 @@ export const studentSchema = yup.object({
 
 
 export const studentEditSchema = yup.object({
-    name: yup.string().min(3, "Student Name Must Contain 3 Letters").required("School name is Required"),
+    name: yup.string().min(3, "Student Name Must Contain 3 Letters").required("Student name is Required"),
     email: yup.string().email("It Must Be An Email").required("Email is Required"),
     student_class: yup.string().required('Student class is required'),
     age: yup.number().required('Age is required field'),

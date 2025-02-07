@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
-import { Button, CardMedia, Typography, Paper } from '@mui/material';
+import { Button, CardMedia, Typography, Paper, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import axios from 'axios';
 import { loginSchema } from '../../../yupSchema/login';
 import { toast } from 'react-toastify'
@@ -13,9 +13,10 @@ import { baseApi } from '../../../environment';
 
 
 export default function Login() {
-  const navigate=useNavigate()
-      const {logIn}=React.useContext(AuthContext)
-  
+  const navigate = useNavigate()
+  const [role, setRole] = React.useState('Student')
+  const { logIn } = React.useContext(AuthContext)
+
   const initialValues = {
     email: '',
     password: '',
@@ -28,9 +29,16 @@ export default function Login() {
     validationSchema: loginSchema,
     onSubmit: (values) => {
 
-
+      let URL = `${baseApi}/school/login`
+      if (role === 'Student') {
+        URL = `${baseApi}/student/login`
+      } else if (role === 'Teacher') {
+        URL = `${baseApi}/teacher/login`
+      } else if (role === 'School') {
+        URL = `${baseApi}/school/login`
+      }
       axios
-        .post(`${baseApi}/school/login`, { ...values })
+        .post(`${URL}`, { ...values })
         .then((res) => {
           const token = res.headers.get('Autharisation')
           if (token) {
@@ -45,7 +53,7 @@ export default function Login() {
           console.log(res);
           toast.success('login successfully');
           formik.resetForm();
-          navigate('/school')
+          navigate(`/${role}`)
         })
         .catch((err) => {
           console.log(err);
@@ -92,9 +100,26 @@ export default function Login() {
           onSubmit={formik.handleSubmit}
           autoComplete="off"
         >
+
+
+
           <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800', fontFamily: 'verdana' }}>
             Login
           </Typography>
+
+
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+            <Select
+              value={role}
+              label="Role"
+              onChange={e => setRole(e.target.value)}
+            >
+              <MenuItem value={'Student'}>Student</MenuItem>
+              <MenuItem value={'Teacher'}>Teacher</MenuItem>
+              <MenuItem value={'School'}>School</MenuItem>
+            </Select>
+          </FormControl>
 
 
           <TextField

@@ -27,7 +27,8 @@ module.exports={
 
     getAttendence:async(req,res)=>{
         try {
-            const {studentId}=req.params
+            const {studentId}=req.body
+            console.log(studentId)
             const attendence=await Attendence.find({student:studentId}).populate('student')
             res.status(200).json(attendence)
 

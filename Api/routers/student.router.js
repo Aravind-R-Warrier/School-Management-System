@@ -7,7 +7,7 @@ const router=express.Router()
 router.post('/register',AuthMiddleware(['SCHOOL']),registerStudent)
 
 // getallStudent
-router.get('/fetch-with-query',AuthMiddleware(['SCHOOL']),getStudentsWithQuery)
+router.get('/fetch-with-query',AuthMiddleware(['SCHOOL',"TEACHER"]),getStudentsWithQuery)
 
 // login
 router.post('/login',loginStudent)

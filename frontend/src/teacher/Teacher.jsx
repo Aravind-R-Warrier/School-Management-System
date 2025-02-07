@@ -22,16 +22,13 @@ import {Outlet, useNavigate} from 'react-router-dom'
 
   // icons
   import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
-  import PeopleIcon from '@mui/icons-material/People';
-  import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-  import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
   import NotificationsIcon from '@mui/icons-material/Notifications';
-  import SubjectIcon from '@mui/icons-material/Subject';
   import ExplicitIcon from '@mui/icons-material/Explicit';//exam
   import RecentActorsIcon from '@mui/icons-material/RecentActors';
-  import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
   import EventIcon from '@mui/icons-material/Event';
   import HomeIcon from '@mui/icons-material/Home';
+  import LogoutIcon from '@mui/icons-material/Logout';
+
 
 const drawerWidth = 240;
 
@@ -131,7 +128,8 @@ export default function Teacher() {
     {link:'/teacher/schedule',component:"Schedule",icon:EventIcon}, 
     {link:'/teacher/attendence',component:"Attendence",icon:RecentActorsIcon}, 
     {link:'/teacher/examinations',component:"Examination",icon:ExplicitIcon}, 
-    {link:'/teacher/notice',component:"Notice",icon:NotificationsIcon}, 
+    {link:'/teacher/notice',component:"Notice",icon:NotificationsIcon},
+    {link:'/logout',component:"Logout",icon:LogoutIcon},  
   ]
 const navigate=useNavigate()
 
@@ -234,57 +232,7 @@ const navigate=useNavigate()
           ))}
         </List>
         <Divider />
-        {/* <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={[
-                  {
-                    minHeight: 48,
-                    px: 2.5,
-                  },
-                  open
-                    ? {
-                        justifyContent: 'initial',
-                      }
-                    : {
-                        justifyContent: 'center',
-                      },
-                ]}
-              >
-                <ListItemIcon
-                  sx={[
-                    {
-                      minWidth: 0,
-                      justifyContent: 'center',
-                    },
-                    open
-                      ? {
-                          mr: 3,
-                        }
-                      : {
-                          mr: 'auto',
-                        },
-                  ]}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText
-                  primary={text}
-                  sx={[
-                    open
-                      ? {
-                          opacity: 1,
-                        }
-                      : {
-                          opacity: 0,
-                        },
-                  ]}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
+       
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
