@@ -7,8 +7,10 @@ export const AuthContext=createContext()
 export const AuthProvider=({children})=>{
     const[authenticated,setAuthenticated]=useState(false)
     const[user,setUser]=useState(null)
+    const[dark,setDark]=useState(false)
 
     useEffect(()=>{
+        const mode=sessionStorage.getItem('mode')
         const token=sessionStorage.getItem('token')
         const userStr=sessionStorage.getItem('user')
         if(token){
@@ -16,6 +18,9 @@ export const AuthProvider=({children})=>{
         }
         if(userStr){
             setUser(JSON.parse(userStr))
+        }
+        if(mode){
+            setDark(JSON.parse(mode))
         }
 
     },[])
@@ -32,8 +37,13 @@ export const AuthProvider=({children})=>{
         setUser(null)
     }
 
+    const modeChange=()=>{
+        sessionStorage.setItem('mode',`${!dark}`)
+        setDark(!dark)
+    }
+
     return (
-        <AuthContext.Provider value={{authenticated,user,logIn,logOut}}>
+        <AuthContext.Provider value={{authenticated,user,dark,logIn,logOut,modeChange}}>
             {children}
         </AuthContext.Provider>
     )

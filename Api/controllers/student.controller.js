@@ -103,7 +103,7 @@ module.exports = {
         try {
             const id=req.user.id
             const schoolId=req.user.schoolId
-            const student = await Student.findOne({_id:id,school:schoolId}).select(['-password']);
+            const student = await Student.findOne({_id:id,school:schoolId}).select(['-password']).populate('student_class');
             res.status(200).json({ success: true, message: 'success fetching student', student })
             if(!student){
                 res.status(404).json({success:false,message:'student not found'})

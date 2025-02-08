@@ -11,7 +11,7 @@ router.get('/all',AuthMiddleware(['SCHOOL']),getAllNotices)
 // getNoticesForTeachers
 router.get('/teacher',AuthMiddleware(['TEACHER']),getAllNoticesForTeacher)
 // getNoticesForStudents
-router.get('/all',AuthMiddleware(['STUDENT']),getAllNoticesForStudents)
+router.get('/student',AuthMiddleware(['STUDENT']),getAllNoticesForStudents)
 
 // update
 router.patch('/update/:id',AuthMiddleware(['SCHOOL']),updateNoticeWithId)//Authenticated for update

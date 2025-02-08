@@ -10,7 +10,7 @@ router.post('/mark',AuthMiddleware(['TEACHER']),markAttendence)
 router.get('/check/:classId',AuthMiddleware(['SCHOOL','TEACHER']),checkAttendence)
 
 // getattendence
-router.get('/:studentId',AuthMiddleware(['SCHOOL']),getAttendence)
+router.get('/:studentId',AuthMiddleware(['SCHOOL','STUDENT']),getAttendence)
 
 
 

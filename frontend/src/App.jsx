@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import School from './school/School'
@@ -27,15 +27,21 @@ import ExaminationStudent from './student/components/examinations/ExaminationStu
 import NoticeStudent from './student/components/notice/NoticeStudent.jsx'
 import StudentDetails from './student/components/studentDetails/StudentDetails.jsx'
 import ProtectRoute from './gaurd/protectRoute.jsx'
-import { AuthProvider } from './context/AuthContext.jsx'
+import { AuthContext, AuthProvider } from './context/AuthContext.jsx'
 import AttendenceStudentList from './school/components/attendence/AttendenceStudentList.jsx'
 import AttendenceDetails from './school/components/attendence/AttendenceDetails.jsx'
 import Logout from './client/components/logout/Logout.jsx'
+import DraggableButton from './basicUtiliyComponents/draggable/DraggableButton.jsx'
+import { ThemeProvider } from '@mui/material'
+import darkTheme from './basicUtiliyComponents/darkTheme/darkTheme.js'
+import lightTheme from './basicUtiliyComponents/lightTheme/lightTheme.js'
 
 function App() {
+      const { dark,modeChange } = useContext(AuthContext)
   return (
-    <AuthProvider>
     
+    <ThemeProvider theme={dark?darkTheme:lightTheme}>
+          <DraggableButton/>
       <BrowserRouter>
         <Routes>
           {/* school */}
@@ -82,7 +88,8 @@ function App() {
 
         </Routes>
       </BrowserRouter>
-    </AuthProvider>
+      </ThemeProvider>
+   
   )
 }
 

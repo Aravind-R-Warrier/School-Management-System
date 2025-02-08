@@ -33,6 +33,7 @@ import {Outlet, useNavigate} from 'react-router-dom'
   import EventIcon from '@mui/icons-material/Event';
   import HomeIcon from '@mui/icons-material/Home';
   import LogoutIcon from '@mui/icons-material/Logout';
+import Navbar from '../client/utilityComponents/navbar/Navbar';
 
 const drawerWidth = 240;
 
@@ -159,25 +160,23 @@ const navigate=useNavigate()
     <Box sx={{ display: 'flex',height:'100%'}}>
       <CssBaseline />
     <AppBar position="fixed" open={open} sx={{backgroundColor: '#086a78' }}>
-        <Toolbar>
+    <Toolbar sx={{background:' #0A192F'}}>
           <IconButton
-            color="inherit"
+            // color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             sx={[
               {
-                marginRight: 5,
+                marginRight: 2,
+                color:'white'
               },
               open && { display: 'none' },
             ]}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6"
-           noWrap component="div">
-            School Management System
-          </Typography>
+        <Navbar/>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>

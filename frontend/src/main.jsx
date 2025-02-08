@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { ToastContainer ,toast} from 'react-toastify'
 import axios from 'axios'
+import { AuthProvider } from './context/AuthContext.jsx'
 
 
 axios.interceptors.request.use((req)=>{
@@ -14,8 +15,11 @@ axios.interceptors.request.use((req)=>{
 })
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  <AuthProvider>
+    <StrictMode>
     <ToastContainer/>
     <App />
-  </StrictMode>,
+  </StrictMode>
+  </AuthProvider>
+  
 )
