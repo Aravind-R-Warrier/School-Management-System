@@ -104,10 +104,10 @@ export default function Register() {
           onSubmit={formik.handleSubmit}
           autoComplete="off"
         >
-           <Typography variant={'h4'} sx={{textAlign:'center',margin:'0',padding:'0',fontWeight:'800',fontFamily:'verdana'}}>
+           <Typography variant={'h4'} sx={{textAlign:'center',margin:'0',padding:'0',color:'black',fontWeight:'800',fontFamily:'verdana'}}>
         Register
       </Typography>
-          <Typography variant="p">Add School Picture</Typography>
+          <Typography variant="p" color='black'>Add School Picture</Typography>
           <TextField
             type="file"
             inputRef={fileinputRef}
@@ -115,8 +115,9 @@ export default function Register() {
             InputProps={{
               style: {
                 padding: '8px',
-                backgroundColor: '#f5f5f5',
+                backgroundColor: '#FFFFFF',
                 borderRadius: '4px',
+                color: '#333333'
               },
             }}
           />
@@ -139,6 +140,10 @@ export default function Register() {
             onBlur={formik.handleBlur}
             error={formik.touched.school_name && Boolean(formik.errors.school_name)}
             helperText={formik.touched.school_name && formik.errors.school_name}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           <TextField
@@ -151,6 +156,10 @@ export default function Register() {
             onBlur={formik.handleBlur}
             error={formik.touched.owner_name && Boolean(formik.errors.owner_name)}
             helperText={formik.touched.owner_name && formik.errors.owner_name}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           <TextField
@@ -163,6 +172,10 @@ export default function Register() {
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           <TextField
@@ -176,6 +189,10 @@ export default function Register() {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           <TextField
@@ -189,6 +206,10 @@ export default function Register() {
             onBlur={formik.handleBlur}
             error={formik.touched.confirm_password && Boolean(formik.errors.confirm_password)}
             helperText={formik.touched.confirm_password && formik.errors.confirm_password}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           <Button

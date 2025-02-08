@@ -27,7 +27,7 @@ import ExaminationStudent from './student/components/examinations/ExaminationStu
 import NoticeStudent from './student/components/notice/NoticeStudent.jsx'
 import StudentDetails from './student/components/studentDetails/StudentDetails.jsx'
 import ProtectRoute from './gaurd/protectRoute.jsx'
-import { AuthContext, AuthProvider } from './context/AuthContext.jsx'
+import { AuthContext } from './context/AuthContext.jsx'
 import AttendenceStudentList from './school/components/attendence/AttendenceStudentList.jsx'
 import AttendenceDetails from './school/components/attendence/AttendenceDetails.jsx'
 import Logout from './client/components/logout/Logout.jsx'
@@ -37,11 +37,11 @@ import darkTheme from './basicUtiliyComponents/darkTheme/darkTheme.js'
 import lightTheme from './basicUtiliyComponents/lightTheme/lightTheme.js'
 
 function App() {
-      const { dark,modeChange } = useContext(AuthContext)
+      const { dark } = useContext(AuthContext)
   return (
     
     <ThemeProvider theme={dark?darkTheme:lightTheme}>
-          <DraggableButton/>
+          {/* <DraggableButton/> */}
       <BrowserRouter>
         <Routes>
           {/* school */}

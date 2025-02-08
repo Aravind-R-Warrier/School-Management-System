@@ -1,4 +1,4 @@
-import { Box, Button, Paper, TextField, Typography } from '@mui/material'
+import { Box, Button, IconButton, Paper, TextField, Typography } from '@mui/material'
 import { useFormik } from 'formik'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
@@ -123,9 +123,9 @@ const fetchAllClasses=async(req,res)=>{
           autoComplete="off"
         >
           {
-            edit?  <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800',fontFamily:'Courier New' }}>
+            edit?  <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800',fontFamily:'Courier New', color: '#333333' }}>
             Edit Class
-           </Typography>:  <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800',fontFamily:'Courier New' }}>
+           </Typography>:  <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800',fontFamily:'Courier New', color: '#333333'}}>
            Add Class
           </Typography>
           }
@@ -201,7 +201,9 @@ const fetchAllClasses=async(req,res)=>{
          <Box component={'div'}><Typography variant='h5'>Class: {item.class_text} [{item.class_num}]</Typography></Box> 
          <Box component={'div'}>
         <Button onClick={()=>handleEdit(item._id,item.class_text,item.class_num)}><EditIcon/></Button>
-        <Button onClick={()=>handleDelete(item._id)}><DeleteIcon/></Button>
+        <IconButton color="error" onClick={() => handleDelete(item._id)}>
+                  <DeleteIcon />
+                </IconButton>
          </Box>
           </Paper>
         })

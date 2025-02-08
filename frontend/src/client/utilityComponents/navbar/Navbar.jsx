@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthContext';
+import DraggableButton from '../../../basicUtiliyComponents/draggable/DraggableButton';
 
 
 
@@ -103,6 +104,7 @@ function Navbar() {
                 {page.component}
               </Button>
             ))}
+                          <DraggableButton/>
           </Box>
 
           {/* Mobile Menu Icon */}

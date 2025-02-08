@@ -103,23 +103,24 @@ export default function Login() {
 
 
 
-          <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800', fontFamily: 'verdana' }}>
+          <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800', fontFamily: 'verdana', color: 'black' }}>
             Login
           </Typography>
-
 
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Role</InputLabel>
             <Select
               value={role}
-              label="Role"
               onChange={e => setRole(e.target.value)}
+              displayEmpty
+              sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
             >
               <MenuItem value={'Student'}>Student</MenuItem>
               <MenuItem value={'Teacher'}>Teacher</MenuItem>
               <MenuItem value={'School'}>School</MenuItem>
             </Select>
           </FormControl>
+
 
 
           <TextField
@@ -132,7 +133,10 @@ export default function Login() {
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-          />
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}          />
 
           <TextField
             name="password"
@@ -145,6 +149,10 @@ export default function Login() {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
 

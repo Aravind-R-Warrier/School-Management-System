@@ -173,7 +173,9 @@ const navigate=useNavigate()
           >
             <MenuIcon />
           </IconButton>
+          {/* navBar */}
         <Navbar/>
+        
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
