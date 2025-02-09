@@ -40,7 +40,7 @@ export default function Gallery() {
     //   apicall
     React.useEffect(()=>{
         axios
-        .get(`${baseApi}/school/all`)
+        .get(`${baseApi}school/all`)
         .then((res) => {
         //   const token=res.headers.get('Autharisation')
         //   if(token){
