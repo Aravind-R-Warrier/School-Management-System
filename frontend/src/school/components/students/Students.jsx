@@ -262,11 +262,11 @@ fetchStudents()
           autoComplete="off"
           
         >
-          {edit? <Typography variant={'h4'} sx={{textAlign:'center',margin:'0',padding:'0',fontWeight:'800',fontFamily:'New Courier'}}>Edit Student</Typography>:
-                     <Typography variant={'h4'} sx={{textAlign:'center',margin:'0',padding:'0',fontWeight:'800',fontFamily:'New Courier'}}>Add Student</Typography>
+          {edit? <Typography variant={'h4'} sx={{textAlign:'center',margin:'0',padding:'0',fontWeight:'800',fontFamily:'New Courier',color:'black'}}>Edit Student</Typography>:
+                     <Typography variant={'h4'} sx={{textAlign:'center',margin:'0',padding:'0',fontWeight:'800',fontFamily:'New Courier',color:'black'}}>Add Student</Typography>
      }
 
-          <Typography variant="p">Add Student Picture</Typography>
+          <Typography color='black' variant="p">Add Student Picture</Typography>
           <TextField
             type="file"
             inputRef={fileinputRef}
@@ -305,9 +305,10 @@ fetchStudents()
           />
 
 <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}>
          <InputLabel id="demo-simple-select-label">Class</InputLabel>
         <Select
+        
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={formik.values.student_class}
@@ -315,10 +316,7 @@ fetchStudents()
           name='student_class'
           onChange={formik.handleChange}
          onBlur={formik.handleBlur}
-         sx={{
-          input: { color: '#333333' }, // Ensures text inside input is visible
-          backgroundColor: '#FFFFFF',
-        }}
+         sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
         >
          {classes&&classes.map((item)=>{
           return<MenuItem key={item._id} value={item._id}>{item.class_text}</MenuItem>
@@ -348,7 +346,7 @@ fetchStudents()
           />
 
 <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}  >
         
          <InputLabel id="demo-simple-select-label">Gender</InputLabel>
         <Select
@@ -358,6 +356,7 @@ fetchStudents()
           label="Gender"
           name='gender'
           onChange={formik.handleChange}
+          sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
         >
           <MenuItem value={'male'}>Male</MenuItem>
           <MenuItem value={'female'}>Female</MenuItem>
@@ -494,16 +493,16 @@ fetchStudents()
             label="Search"
             value={params.search?params.search:''}
             onChange={(e)=>{handleSearch(e)}}
-            sx={{backgroundColor:"rgba(255, 255, 255, 0.9)"}}
-            
-          />
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}          />
     
-     <FormControl sx={{width:'180px',marginLeft:'5px'}}>
+     <FormControl sx={{width:'180px',marginLeft:'5px', color: '#333333', backgroundColor: '#FFFFFF' }}>
         <InputLabel id="demo-simple-select-label">Class</InputLabel>
        <Select
          value={params.student_class?params.student_class:''}
-         sx={{backgroundColor:"rgba(255, 255, 255, 0.9)"}}
-        //  label="Student class"
+         sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}        //  label="Student class"
          onChange={(e)=>{handleClass(e)}}
        >
        <MenuItem key={''}>Select classes</MenuItem>

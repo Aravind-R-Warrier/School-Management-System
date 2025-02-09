@@ -17,7 +17,7 @@ function Notice() {
 
 
 
-  const handleEdit = (id, title, message,audience) => {
+  const handleEdit = (id, title, message, audience) => {
     // console.log(id)
     setEdit(true)
     formik.setFieldValue('title', title)
@@ -31,20 +31,20 @@ function Notice() {
     formik.resetForm()
   }
   const handleDelete = async (id) => {
-   if(confirm("Are you sure you want to delete")){
-    try {
-      const response = await axios.delete(`${baseApi}/notice/delete/${id}`);
-      toast.success(response.data.message);
-      fetchAllNotices();
-    } catch (err) {
-      console.error('Error deleting notice:', err);
-      toast.error(err.response?.data?.message || 'Error deleting notice');
+    if (confirm("Are you sure you want to delete")) {
+      try {
+        const response = await axios.delete(`${baseApi}/notice/delete/${id}`);
+        toast.success(response.data.message);
+        fetchAllNotices();
+      } catch (err) {
+        console.error('Error deleting notice:', err);
+        toast.error(err.response?.data?.message || 'Error deleting notice');
+      }
     }
-   }
   };
 
   const formik = useFormik({
-    initialValues: { title: '', message: '', audience:"" },
+    initialValues: { title: '', message: '', audience: "" },
     validationSchema: NoticeSchema,
     onSubmit: (values) => {
       // api for creation and edit
@@ -126,9 +126,9 @@ function Notice() {
             autoComplete="off"
           >
             {
-              edit ? <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800', fontFamily: 'Courier New' }}>
+              edit ? <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800', fontFamily: 'Courier New', color: 'black' }}>
                 Edit Notice
-              </Typography> : <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800', fontFamily: 'Courier New' }}>
+              </Typography> : <Typography variant={'h4'} sx={{ textAlign: 'center', margin: '0', padding: '0', fontWeight: '800', fontFamily: 'Courier New', color: 'black' }}>
                 Add Notice
               </Typography>
             }
@@ -145,8 +145,11 @@ function Notice() {
               onBlur={formik.handleBlur}
               error={formik.touched.title && Boolean(formik.errors.title)}
               helperText={formik.touched.title && formik.errors.title}
+              sx={{
+                input: { color: '#333333' }, // Ensures text inside input is visible
+                backgroundColor: '#FFFFFF',
+              }}
             />
-
             <TextField
               name="message"
               label="Message"
@@ -159,13 +162,21 @@ function Notice() {
               onBlur={formik.handleBlur}
               error={formik.touched.message && Boolean(formik.errors.message)}
               helperText={formik.touched.message && formik.errors.message}
+              InputProps={{
+                style: { color: 'black', backgroundColor: '#FFFFFF' }, // Text and background color
+              }}
+              InputLabelProps={{
+                style: { color: 'grey' }, // Label color
+              }}
             />
+
 
             {/* select */}
             <FormControl fullWidth sx={{ marginTop: '10px' }}
             >
               <InputLabel id="demo-simple-select-label">Audience</InputLabel>
               <Select
+                sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
                 value={formik.values.audience}
                 label="Audience"
                 name='audience'
@@ -183,7 +194,7 @@ function Notice() {
 
             <Button
               type="submit"
-              style={{ background: '#036E66',width:'200px' }}
+              style={{ background: '#036E66', width: '200px' }}
               size="large"
               sx={{
                 width: '100%',
@@ -201,7 +212,7 @@ function Notice() {
                 variant="outlined"
                 size="large"
                 sx={{
-                 width:'200px',
+                  width: '200px',
                   backgroundColor: '#9999',
                   color: 'black',
                   ':hover': { backgroundColor: '#115293' },
@@ -221,14 +232,14 @@ function Notice() {
         {
 
           notices && notices.map(item => {
-            return <Paper key={item._id} sx={{ border: '1px black solid', margin: '20px', p: 1}}>
-              <Box component={'div'} sx={{maxWidth:'600px'}}>
-                <Typography sx={{color:'black'}}  variant='h5'>{item.title}</Typography>
-                <Typography sx={{fontSize:'16px'}} variant='h6'>{item.message}</Typography>
-                <Typography sx={{color:'darkBrown'}} variant='h6'>For:({item.audience})</Typography>
-                </Box>
+            return <Paper key={item._id} sx={{ border: '1px black solid', margin: '20px', p: 1 }}>
+              <Box component={'div'} sx={{ maxWidth: '600px' }}>
+                <Typography sx={{ color: 'black' }} variant='h5'>{item.title}</Typography>
+                <Typography sx={{ fontSize: '16px' }} variant='h6'>{item.message}</Typography>
+                <Typography sx={{ color: 'darkBrown' }} variant='h6'>For:({item.audience})</Typography>
+              </Box>
               <Box component={'div'}>
-                <Button onClick={() => handleEdit(item._id, item.title, item.message,item.audience)}><EditIcon /></Button>
+                <Button onClick={() => handleEdit(item._id, item.title, item.message, item.audience)}><EditIcon /></Button>
                 <Button onClick={() => handleDelete(item._id)}><DeleteIcon /></Button>
               </Box>
             </Paper>

@@ -92,7 +92,7 @@ export default function ScheduleEvents({ selectedClass, handleClose, edit, selec
         backgroundColor: "#f9f9f9",
         borderRadius: "8px",
         boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-        fontFamily:'New Courier'
+        fontFamily: 'New Courier'
       }}
       onSubmit={formik.handleSubmit}
     >
@@ -102,7 +102,8 @@ export default function ScheduleEvents({ selectedClass, handleClose, edit, selec
 
       <FormControl fullWidth>
         <InputLabel>Teacher</InputLabel>
-        <Select value={formik.values.teacher} name="teacher" onChange={formik.handleChange}>
+        <Select sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
+          value={formik.values.teacher} name="teacher" onChange={formik.handleChange}>
           {teachers.map((item) => (
             <MenuItem key={item._id} value={item._id}>
               {item.name}
@@ -113,7 +114,8 @@ export default function ScheduleEvents({ selectedClass, handleClose, edit, selec
 
       <FormControl fullWidth>
         <InputLabel>Subject</InputLabel>
-        <Select value={formik.values.subject} name="subject" onChange={formik.handleChange}>
+        <Select sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
+          value={formik.values.subject} name="subject" onChange={formik.handleChange}>
           {subjects.map((item) => (
             <MenuItem key={item._id} value={item._id}>
               {item.subject_name}
@@ -124,7 +126,8 @@ export default function ScheduleEvents({ selectedClass, handleClose, edit, selec
 
       <FormControl fullWidth>
         <InputLabel>Period</InputLabel>
-        <Select value={formik.values.period} name="period" onChange={formik.handleChange}>
+        <Select sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
+          value={formik.values.period} name="period" onChange={formik.handleChange}>
           {periods.map((item) => (
             <MenuItem key={item.id} value={`${item.startTime},${item.endTime}`}>
               {item.label}
@@ -136,7 +139,10 @@ export default function ScheduleEvents({ selectedClass, handleClose, edit, selec
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           label="Select Date"
-          value={formik.values.date ? dayjs(formik.values.date) : null}
+          sx={{
+            input: { color: '#333333' }, // Ensures text inside input is visible
+            backgroundColor: '#FFFFFF',
+          }}          value={formik.values.date ? dayjs(formik.values.date) : null}
           onChange={(newValue) => formik.setFieldValue("date", newValue)}
           renderInput={(params) => <TextField {...params} fullWidth />}
         />

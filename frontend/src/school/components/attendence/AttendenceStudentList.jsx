@@ -103,8 +103,10 @@ export default function AttendenceStudentList() {
                 label="Search"
                 value={params.search || ''}
                 onChange={(e) => setParams((prev) => ({ ...prev, search: e.target.value }))}
-                sx={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
-              />
+                sx={{
+                  input: { color: '#333333' }, // Ensures text inside input is visible
+                  backgroundColor: '#FFFFFF',
+                }}                  />
              <FormControl sx={{ width: '180px', marginLeft: '5px' }}>
   <InputLabel>Class</InputLabel>
   <Select
@@ -113,9 +115,10 @@ export default function AttendenceStudentList() {
       const classId = e.target.value;
       setParams((prev) => ({ ...prev, student_class: classId }));
       setSelectedClass(classId); 
+      
     }}
-    sx={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
-  >
+    sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
+    >
     <MenuItem value=''>Select classes</MenuItem>
     {classes.map((item) => (
       <MenuItem key={item._id} value={item._id}>{item.class_text}</MenuItem>

@@ -76,8 +76,8 @@ const fetchClassDetails=async()=>{
     onChange={(e) => {
      setSelectedTeacher(e.target.value)
     }}
-    sx={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
-  >
+    sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
+    >
     <MenuItem value=''>Select Teacher</MenuItem>
     {teachers.map((teacher) => (
       <MenuItem key={teacher._id} value={teacher._id}>{teacher.name}</MenuItem>
