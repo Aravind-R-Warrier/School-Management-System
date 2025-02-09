@@ -6,7 +6,7 @@ function Home() {
   return (
     <div>
       <Carousel/>
-      <h1 style={{textAlign:'center',margin:'20px,0px',fontWeight:'800'}}>Schools</h1>
+      <h1 style={{textAlign:'center',margin:'20px,0px',fontWeight:'800'}}>Our Clients</h1>
       <Gallery/>
     </div>
   )
