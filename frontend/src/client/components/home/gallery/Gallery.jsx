@@ -6,6 +6,7 @@ import { Box } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import axios from 'axios';
+import { baseApi } from '../../../../environment';
 
 export default function Gallery() {
   
@@ -39,7 +40,7 @@ export default function Gallery() {
     //   apicall
     React.useEffect(()=>{
         axios
-        .get('http://localhost:5000/api/school/all')
+        .get(`${baseApi}/school/all`)
         .then((res) => {
         //   const token=res.headers.get('Autharisation')
         //   if(token){
