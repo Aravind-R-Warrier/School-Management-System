@@ -104,7 +104,7 @@ export default function Gallery() {
           }}
         >
           <img
-            src={`./images/uploaded/school/${selectedSchool.school_image}`}
+            src={`${selectedSchool.school_image}`}
             alt={selectedSchool.school_name}
             style={{
               width: '350px',
