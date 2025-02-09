@@ -142,6 +142,10 @@ const fetchAllClasses=async(req,res)=>{
             onBlur={formik.handleBlur}
             error={formik.touched.class_text && Boolean(formik.errors.class_text)}
             helperText={formik.touched.class_text && formik.errors.class_text}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           <TextField
@@ -154,6 +158,10 @@ const fetchAllClasses=async(req,res)=>{
             onBlur={formik.handleBlur}
             error={formik.touched.class_num && Boolean(formik.errors.class_num)}
             helperText={formik.touched.class_num && formik.errors.class_num}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
 

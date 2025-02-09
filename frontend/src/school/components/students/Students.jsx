@@ -298,6 +298,10 @@ fetchStudents()
             onBlur={formik.handleBlur}
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
 <Box sx={{ minWidth: 120 }}>
@@ -311,6 +315,10 @@ fetchStudents()
           name='student_class'
           onChange={formik.handleChange}
          onBlur={formik.handleBlur}
+         sx={{
+          input: { color: '#333333' }, // Ensures text inside input is visible
+          backgroundColor: '#FFFFFF',
+        }}
         >
          {classes&&classes.map((item)=>{
           return<MenuItem key={item._id} value={item._id}>{item.class_text}</MenuItem>
@@ -333,10 +341,15 @@ fetchStudents()
             onBlur={formik.handleBlur}
             error={formik.touched.age && Boolean(formik.errors.age)}
             helperText={formik.touched.age && formik.errors.age}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
 <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
+        
          <InputLabel id="demo-simple-select-label">Gender</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -367,6 +380,10 @@ fetchStudents()
             onBlur={formik.handleBlur}
             error={formik.touched.guardian && Boolean(formik.errors.guardian)}
             helperText={formik.touched.guardian && formik.errors.guardian}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
           
           <TextField
@@ -379,6 +396,10 @@ fetchStudents()
             onBlur={formik.handleBlur}
             error={formik.touched.guardian_phone && Boolean(formik.errors.guardian_phone)}
             helperText={formik.touched.guardian_phone && formik.errors.guardian_phone}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           
@@ -393,6 +414,10 @@ fetchStudents()
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           <TextField
@@ -406,6 +431,10 @@ fetchStudents()
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           <TextField
@@ -419,6 +448,10 @@ fetchStudents()
             onBlur={formik.handleBlur}
             error={formik.touched.confirm_password && Boolean(formik.errors.confirm_password)}
             helperText={formik.touched.confirm_password && formik.errors.confirm_password}
+            sx={{
+              input: { color: '#333333' }, // Ensures text inside input is visible
+              backgroundColor: '#FFFFFF',
+            }}
           />
 
           <Button
