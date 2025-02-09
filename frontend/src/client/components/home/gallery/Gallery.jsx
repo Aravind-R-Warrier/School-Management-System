@@ -70,7 +70,7 @@ export default function Gallery() {
         <ImageListItem key={school.school_image}>
           <img
             srcSet={`./images/uploaded/school/${school.school_image}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            src={`./images/uploaded/school/${school.school_image}?w=248&fit=crop&auto=format`}
+            src={`${school.school_image}`}
             alt={school.title}
             loading="lazy"
             onClick={()=>handleOpen(school)}

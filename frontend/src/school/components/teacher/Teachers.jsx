@@ -75,6 +75,7 @@ export default function Teachers() {
             toast.success('Teacher updated successfully');
             formik.resetForm();
             handleClearFile();
+            setEdit(null)
             fetchTeachers()
           })
           .catch((err) => {
@@ -462,7 +463,7 @@ export default function Teachers() {
                   component="img"
                   alt="green iguana"
                   height="260"
-                  image={`/images/uploaded/teacher/${teacher.teacher_image}`}
+                  image={`${teacher.teacher_image}`}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">

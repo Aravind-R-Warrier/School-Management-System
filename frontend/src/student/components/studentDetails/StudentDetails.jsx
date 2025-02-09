@@ -35,7 +35,7 @@ function StudentDetails() {
    <CardMedia
           component="img"
           sx={{height:'230px',width:'310px',objectPosition:'center',objectFit:'cover',borderRadius:'40%'}}
-          image={`./images/uploaded/student/${student.student_image}`}
+          image={`${student.student_image}`}
           alt="student"
         />
    </Box>

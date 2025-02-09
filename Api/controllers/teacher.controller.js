@@ -6,6 +6,7 @@ const path = require('path')
 const fs = require('fs')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const cloudinary=require('../utils/cloudinary.js')
 
 
 module.exports = {
@@ -13,47 +14,48 @@ module.exports = {
 
     registerTeacher: async (req, res) => {
         try {
-            const form = new formidable.IncomingForm()
-            form.parse(req, async (err, fields, files) => {
-                const teacher = await Teacher.findOne({ email: fields.email[0] });
-                if (teacher) {
-                    return res.status(409).json({ success: false, message: 'email already registered' })
-                } else {
-
-
-                    const photo = files.image[0]
-                    let filePath = photo.filepath;
-                    let originalFileName = photo.originalFilename.replace(" ", "_")
-                    let newPath = path.join(__dirname, process.env.TEACHER_IMAGE_PATH, originalFileName)
-                    let photoData = fs.readFileSync(filePath)
-
-                    fs.writeFileSync(newPath, photoData)
-
-                    const salt = bcrypt.genSaltSync(10)
-                    const hashPassword = bcrypt.hashSync(fields.password[0], salt)
-
-                    const newTeacher = new Teacher({
-                        school:req.user.schoolId,
-                            name:fields.name[0],
-                            email:fields.email[0],
-                            age:fields.age[0],
-                            gender:fields.gender[0],
-                            qualification:fields.qualification[0],
-                            teacher_image:originalFileName,
-                            password:hashPassword,
-                               
-                               
-
-                    })
-                    const savedTeacher = await newTeacher.save()
-                    res.status(200).json({ success: true, data: savedTeacher, message: "teacher is registerd successFully" })
-                }
-            })
+          const form = new formidable.IncomingForm();
+          form.parse(req, async (err, fields, files) => {
+            if (err) {
+              return res.status(400).json({ success: false, message: 'Form parsing error', error: err });
+            }
+    
+            const teacherExists = await Teacher.findOne({ email: fields.email[0] });
+            if (teacherExists) {
+              return res.status(409).json({ success: false, message: 'Email already registered' });
+            }
+    
+            let imageUrl = null;
+            if (files.image) {
+              const photo = files.image[0];
+              const uploadResult = await cloudinary.uploader.upload(photo.filepath, {
+                folder: 'teachers',
+                public_id: `${Date.now()}_${photo.originalFilename.replace(/ /g, '_')}`
+              });
+              imageUrl = uploadResult.secure_url;
+            }
+    
+            const salt = bcrypt.genSaltSync(10);
+            const hashPassword = bcrypt.hashSync(fields.password[0], salt);
+    
+            const newTeacher = new Teacher({
+              school: req.user.schoolId,
+              name: fields.name[0],
+              email: fields.email[0],
+              age: fields.age[0],
+              gender: fields.gender[0],
+              qualification: fields.qualification[0],
+              teacher_image: imageUrl, // Store Cloudinary image URL
+              password: hashPassword
+            });
+    
+            const savedTeacher = await newTeacher.save();
+            res.status(200).json({ success: true, data: savedTeacher, message: "Teacher registered successfully" });
+          });
         } catch (error) {
-            res.status(500).json({ success: false, message: 'teacher reg failed', error })
+          res.status(500).json({ success: false, message: 'Teacher registration failed', error });
         }
-
-    },
+      },
 
 
 
@@ -153,95 +155,90 @@ module.exports = {
 
     updateTeacher: async (req, res) => {
         try {
-            const id = req.params.id;
-            const schoolId = req.user.schoolId;
-            const form = new formidable.IncomingForm();
+          const id = req.params.id;
+          const schoolId = req.user.schoolId;
+          const form = new formidable.IncomingForm();
     
-            form.parse(req, async (err, fields, files) => {
-                if (err) {
-                    return res.status(400).json({ success: false, message: 'Form parsing error', error: err });
-                }
+          form.parse(req, async (err, fields, files) => {
+            if (err) {
+              return res.status(400).json({ success: false, message: 'Form parsing error', error: err });
+            }
     
-                const teacher = await Teacher.findOne({ _id: id, school: schoolId });
-                if (!teacher) {
-                    return res.status(404).json({ success: false, message: 'Teacher not found' });
-                }
+            const teacher = await Teacher.findOne({ _id: id, school: schoolId });
+            if (!teacher) {
+              return res.status(404).json({ success: false, message: 'Teacher not found' });
+            }
     
-                // Handle password update
-                if (fields.password) {
-                    const salt = bcrypt.genSaltSync(10);
-                    const hashPassword = bcrypt.hashSync(fields.password[0], salt);
-                    teacher.password = hashPassword;
-                }
+            // Handle password update
+            if (fields.password) {
+              const salt = bcrypt.genSaltSync(10);
+              teacher.password = bcrypt.hashSync(fields.password[0], salt);
+            }
     
-                // Update other fields (name, email, age, gender, guardian, etc.)
-                if (fields.name) {
-                    teacher.name = fields.name[0];
-                }
-                if (fields.email) {
-                    teacher.email = fields.email[0];
-                }
-                if (fields.age) {
-                    teacher.age = fields.age[0];
-                }
-                if (fields.gender) {
-                    teacher.gender = fields.gender[0];
-                }
-                if (fields.qualification) {
-                    teacher.qualification = fields.qualification[0];
-                }
-               
+            // Update other fields
+            if (fields.name) teacher.name = fields.name[0];
+            if (fields.email) teacher.email = fields.email[0];
+            if (fields.age) teacher.age = fields.age[0];
+            if (fields.gender) teacher.gender = fields.gender[0];
+            if (fields.qualification) teacher.qualification = fields.qualification[0];
     
-                // Handle image upload
-                if (files.image) {
-                    const photo = files.image[0];
-                    const filePath = photo.filepath;
-                    const uniqueFileName = `${Date.now()}_${photo.originalFilename.replace(/ /g, '_')}`;
+            // Handle image update
+            if (files.image) {
+              const photo = files.image[0];
     
-                    // Delete old image if exists
-                    if (teacher.teacher_image) {
-                        const oldImagePath = path.join(__dirname, process.env.TEACHER_IMAGE_PATH, teacher.teacher_image);
-                        if (fs.existsSync(oldImagePath)) {
-                            fs.unlinkSync(oldImagePath);
-                        }
-                    }
+              // Upload new image to Cloudinary
+              const uploadResult = await cloudinary.uploader.upload(photo.filepath, {
+                folder: 'teachers',
+                public_id: `${Date.now()}_${photo.originalFilename.replace(/ /g, '_')}`
+              });
     
-                    // Save the new image
-                    const newPath = path.join(__dirname, process.env.TEACHER_IMAGE_PATH, uniqueFileName);
-                    const photoData = fs.readFileSync(filePath);
-                    fs.writeFileSync(newPath, photoData);
+              // Delete old Cloudinary image if exists
+              if (teacher.teacher_image) {
+                const oldPublicId = teacher.teacher_image.split('/').pop().split('.')[0];
+                await cloudinary.uploader.destroy(`teachers/${oldPublicId}`);
+              }
     
-                    teacher.teacher_image = uniqueFileName; // Update the teacher image field
-                }
+              teacher.teacher_image = uploadResult.secure_url;
+            }
     
-                // Save the teacher with updated data
-                await teacher.save();
-    
-                res.status(200).json({ success: true, message: 'Teacher updated successfully', teacher });
-            });
+            // Save updated teacher
+            await teacher.save();
+            res.status(200).json({ success: true, message: 'Teacher updated successfully', teacher });
+          });
         } catch (error) {
-            res.status(500).json({ success: false, message: 'Teacher update failed', error });
+          res.status(500).json({ success: false, message: 'Teacher update failed', error });
         }
+      },
+    
+    
+
+
+      deleteTeacherWithId: async (req, res) => {
+        try {
+          const id = req.params.id;
+          const schoolId = req.user.schoolId;
+    
+          const teacher = await Teacher.findOne({ _id: id, school: schoolId });
+          if (!teacher) {
+            return res.status(404).json({ success: false, message: 'Teacher not found' });
+          }
+    
+          // Delete image from Cloudinary if exists
+          if (teacher.teacher_image) {
+            const oldPublicId = teacher.teacher_image.split('/').pop().split('.')[0];
+            await cloudinary.uploader.destroy(`teachers/${oldPublicId}`);
+          }
+    
+          await Teacher.findByIdAndDelete(id);
+    
+          // Fetch updated list of teachers
+          const teachers = await Teacher.find({ school: schoolId });
+    
+          res.status(200).json({ success: true, message: 'Teacher deleted successfully', teachers });
+        } catch (error) {
+          console.log(error);
+          res.status(500).json({ success: false, message: 'Teacher deletion failed', error });
+        }
+      }
     }
-    ,
-
-
-  deleteTeacherWithId: async (req, res) => {
-    try {
-        const id = req.params.id;
-        const schoolId = req.user.schoolId;
-        
-       
-        await Teacher.findByIdAndDelete({ _id: id, school: schoolId });
-
-        // Fetch updated list of teachers after deletion
-        const teachers = await Teacher.find({ school: schoolId });
-
-        res.status(200).json({ success: true, message: 'Teacher deleted', teachers });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: 'Teacher delete failed', error });
-    }
-}
-
-}
+    

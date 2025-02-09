@@ -4,11 +4,11 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Box, Button, CardMedia, TextField, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { toast } from 'react-toastify';
-
 function Dashboard() {
   const [school, setSchool] = useState(null);
   const[schoolName,setSchoolName]=useState('')
   const [edit, setEdit] = useState(false);
+  const[classes,setClasses]=useState([])
 
   // Image handling
   const [file, setFile] = useState(null);
@@ -44,6 +44,8 @@ function Dashboard() {
       });
   };
 
+
+
   const handleEditSubmit=async()=>{
     
 
@@ -68,9 +70,36 @@ function Dashboard() {
     handleClearFile()
   }
 
+ 
+
+  // fetchStudents
+  const fetchNumberOfClasses=async()=>{
+  await  axios.get(`${baseApi}/class/all`).then(res=>{
+      setClasses(res.data.data.length)
+      // console.log(classes)
+  }).catch(er=>{
+    console.log(er)
+  })
+  }
+  // fetchStudents
+  const fetchStudents=async()=>{
+  await  axios.get(`${baseApi}/student/fetch-with-query`).then(res=>{
+      console.log(res)
+  }).catch(er=>{
+    console.log(er)
+  })
+  }
+ 
+
+
+  
   useEffect(() => {
     fetchSchool();
+    fetchNumberOfClasses()
+    fetchStudents()
   }, []);
+
+
 
   return (
     <>
@@ -132,7 +161,7 @@ function Dashboard() {
           sx={{
             height: '500px',
             width: '100%',
-            background: `url(/images/uploaded/school/${school.school_image})`,
+            background: `url(${school.school_image})`,
             backgroundSize: 'cover',
             display: 'flex',
             backgroundPosition:'center',

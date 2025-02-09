@@ -79,6 +79,7 @@ const[editId,setEditId]=React.useState(null)
           formik.resetForm();
           handleClearFile();
           fetchStudents()
+          setEdit(null)
         })
         .catch((err) => {
           console.log(err);
@@ -152,7 +153,7 @@ const handleClass = (e) => {
 
 // students fetching
   const fetchStudents=async()=>{
-    axios.get(`${baseApi}/student/fetch-with-query`,{params}).then(res=>{
+   await axios.get(`${baseApi}/student/fetch-with-query`,{params}).then(res=>{
       setStudents(res.data.students)
       // console.log(res)
   }).catch(er=>{
@@ -523,7 +524,7 @@ fetchStudents()
               component="img"
               alt="green iguana"
               height="260"
-              image={`/images/uploaded/student/${student.student_image}`}
+              image={`${student.student_image}`}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
