@@ -3,7 +3,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import SheduleEvents from './sheduleEvents';
+import SheduleEvents from './SheduleEvents';
 import axios from 'axios';
 import { baseApi } from '../../../environment';
 
