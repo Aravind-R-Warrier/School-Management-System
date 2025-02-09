@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
-import { Box, Typography, MobileStepper, Button } from '@mui/material';
-import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material';
+import React, { useState, useEffect } from 'react';
+import { useSwipeable } from 'react-swipeable';
+import { Box, Typography } from '@mui/material';
 import ParticlesBg from 'particles-bg';
-
-const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const carouselItems = [
   {
@@ -21,7 +17,7 @@ const carouselItems = [
     imgPath: 'https://assets.thehansindia.com/h-upload/2022/07/05/1301444-students.webp',
   },
   {
-    label: 'Education is not preparation for life; education is life itself',
+    label: 'Education is not preparation for life,Education is life itself',
     imgPath: 'https://t4.ftcdn.net/jpg/05/18/65/75/360_F_518657595_keQdDMCfv8SgYvjOgPMe8BCx7hkuplIf.jpg',
   },
 ];
@@ -30,9 +26,27 @@ function Carousel() {
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = carouselItems.length;
 
-  const handleStepChange = (step) => {
-    setActiveStep(step);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveStep((prevStep) => (prevStep + 1) % maxSteps);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [maxSteps]);
+
+  const handleNext = () => {
+    setActiveStep((prevStep) => (prevStep + 1) % maxSteps);
   };
+
+  const handlePrev = () => {
+    setActiveStep((prevStep) => (prevStep - 1 + maxSteps) % maxSteps);
+  };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: handleNext,
+    onSwipedRight: handlePrev,
+    preventScrollOnSwipe: true,
+    trackMouse: true,
+  });
 
   return (
     <Box
@@ -48,54 +62,34 @@ function Carousel() {
 
       {/* Carousel Container */}
       <Box
+        {...handlers}
         sx={{
           position: 'relative',
           zIndex: 1,
           width: '100%',
-          flexGrow: 1,
           textAlign: 'center',
           margin: 'auto',
           mt: 4,
-          fontFamily: 'Courier New'
+          fontFamily: 'Courier New',
         }}
       >
-        <AutoPlaySwipeableViews
-          index={activeStep}
-          onChangeIndex={handleStepChange}
-          enableMouseEvents
-          interval={5000} 
-        >
-          {carouselItems.map((step, index) => (
-            <div key={step.label}>
-              {Math.abs(activeStep - index) <= 2 ? (
-                <Box
-                  component="img"
-                  sx={{
-                    height: 400,
-                    display: 'block',
-                    maxWidth: '100%',
-                    overflow: 'hidden',
-                    margin: 'auto',
-                    borderRadius: 2,
-                  }}
-                  src={step.imgPath}
-                  alt={step.label}
-                />
-              ) : null}
-              <Typography variant="h6" sx={{ mt: 2 }}>
-                {step.label}
-              </Typography>
-            </div>
-          ))}
-        </AutoPlaySwipeableViews>
-
-        {/* <MobileStepper
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          sx={{ backgroundColor: 'transparent', mt: 2 }}
-         
-        /> */}
+        <Box
+          component="img"
+          sx={{
+            height: 400,
+            display: 'block',
+            maxWidth: '100%',
+            overflow: 'hidden',
+            margin: 'auto',
+            borderRadius: 2,
+            transition: 'transform 0.5s ease-in-out',
+          }}
+          src={carouselItems[activeStep].imgPath}
+          alt={carouselItems[activeStep].label}
+        />
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          {carouselItems[activeStep].label}
+        </Typography>
       </Box>
     </Box>
   );
