@@ -1,3 +1,3 @@
-const baseApi='https://school-management-system-v6uz.onrender.com';
+const baseApi='https://school-management-system-q5vl.onrender.com';
 
 export {baseApi}
