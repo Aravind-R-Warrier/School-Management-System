@@ -110,7 +110,8 @@ function Navbar() {
                 {page.component}
               </Button>
             ))}
-            <DraggableButton />
+            { user && <DraggableButton />}
+
           </Box>
 
           {/* Mobile Menu Icon */}
