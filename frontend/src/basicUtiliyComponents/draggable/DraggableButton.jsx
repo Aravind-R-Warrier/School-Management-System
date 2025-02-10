@@ -12,7 +12,7 @@ function DraggableButton() {
     <div>
       <Draggable>
 <Button style={{zIndex:'999',position:'absolute',top:'22px',right:'215px',color:'white',height:'30px'}} onClick={modeChange}>
-{dark?<DarkModeIcon/>:<LightModeIcon/>}
+{dark?<LightModeIcon/>:<DarkModeIcon/>}
 </Button>
       </Draggable>
     </div>

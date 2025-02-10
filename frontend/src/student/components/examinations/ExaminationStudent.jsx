@@ -45,7 +45,9 @@ export default function ExaminationStudent() {
   }
 
   React.useEffect(() => {
-    fetchExaminations()
+    if(selectedClass){
+      fetchExaminations()
+    }
   }, [selectedClass])
 
   React.useEffect(()=>{
