@@ -28,7 +28,7 @@ function ScheduleTeacher() {
   const fetchClasses = async () => {
     try {
       const res = await axios.get(`${baseApi}/class/all`);
-      console.log(res)
+      // console.log(res)
       if (res.data.data.length > 0) {
         setClasses(res.data.data);
         setSelectedClass(res.data.data[0]._id);

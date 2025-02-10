@@ -16,7 +16,7 @@ function TeacherDetails() {
   const fetchTeacherDetails=async()=>{
     try {
       const response=await  axios.get(`${baseApi}/teacher/fetch-single`)
-      console.log(response)
+      // console.log(response)
       setTeacher(response.data.teacher)
     } catch (error) {
       

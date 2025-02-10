@@ -19,22 +19,28 @@ import DraggableButton from '../../../basicUtiliyComponents/draggable/DraggableB
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const { user, authenticated } = React.useContext(AuthContext);
-  const[pages,setPages]=React.useState([
+  const [pages, setPages] = React.useState([
     { link: '/', component: 'Home' },
     { link: '/login', component: 'Login' },
     { link: '/register', component: 'Register' },
   ])
 
 
-  React.useEffect(()=>{
-    if(authenticated){
+  React.useEffect(() => {
+    if (authenticated) {
       setPages([
         { link: '/', component: 'Home' },
         { link: '/logout', component: 'Logout' },
-        { link:`${user.role}`.toLocaleLowerCase(), component: 'Dashboard' },
+        { link: `${user.role}`.toLocaleLowerCase(), component: 'Dashboard' },
+      ])
+    } else {
+      setPages([
+        { link: '/', component: 'Home' },
+        { link: '/login', component: 'Login' },
+        { link: '/register', component: 'Register' },
       ])
     }
-  },[])
+  }, [authenticated])
 
   const navigate = useNavigate();
 
@@ -53,11 +59,11 @@ function Navbar() {
     <AppBar position="static" sx={{ backgroundColor: '#0A192F' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
-         {/* Animated Logo */}
-         <motion.img
+          {/* Animated Logo */}
+          <motion.img
             src="https://uxwing.com/wp-content/themes/uxwing/download/education-school/graduation-cap-icon.png"
             alt="School Logo"
-            style={{ height: '50px', padding: '4px',marginRight:'2px' }}
+            style={{ height: '50px', padding: '4px', marginRight: '2px' }}
             initial={{ rotate: 0 }}
             animate={{ rotate: [0, 10, -10, 0] }} // Subtle rotation animation
             transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
@@ -76,7 +82,7 @@ function Navbar() {
               textDecoration: 'none',
               cursor: 'pointer',
               letterSpacing: '1px',
-              wordSpacing:'2px'
+              wordSpacing: '2px'
             }}
             onClick={() => navigate('/')}
           >
@@ -104,7 +110,7 @@ function Navbar() {
                 {page.component}
               </Button>
             ))}
-                          <DraggableButton/>
+            <DraggableButton />
           </Box>
 
           {/* Mobile Menu Icon */}
@@ -130,7 +136,7 @@ function Navbar() {
             >
               {pages.map((page, i) => (
                 <MenuItem key={i} onClick={() => handleCloseNavMenu(page.link)}>
-                  <Typography 
+                  <Typography
                     textAlign="center"
                     sx={{ fontFamily: "'Playfair Display', serif", color: '#0A192F' }}
                   >

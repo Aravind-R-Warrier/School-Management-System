@@ -53,10 +53,10 @@ useEffect(()=>{
     const fetchAttendenceData=async(studentId)=>{
         try {
       const response=await axios.get(`${baseApi}/attendence/${studentId}`)
-      console.log("fetchAttendence",response)
+      // console.log("fetchAttendence",response)
       setAttendenceData(response.data)
       const resData=response.data
-      console.log('resData',resData)
+      // console.log('resData',resData)
       if(resData){
         resData.forEach(attendence=>{
             if(attendence.status==='Present'){

@@ -40,7 +40,7 @@ export default function ExaminationTeacher() {
 
     try {
       const response = await axios.get(`${baseApi}/examination/class/${selectedClass}`)
-      console.log('exams', response)
+      // console.log('exams', response)
       setExaminations(response.data.examination)
     } catch (error) {
       console.log('error in fetching exams', error)

@@ -27,7 +27,7 @@ function Class() {
   
 
 const handleEdit=(id,class_text,class_num)=>{
-  console.log(id)
+  // console.log(id)
   setEdit(true)
   formik.setFieldValue('class_text',class_text)
   formik.setFieldValue('class_num',class_num)
@@ -47,7 +47,7 @@ const cancelEdit=()=>{
       // api for creation and edit
       if(edit){
         axios.patch(`${baseApi}/class/update/${editId}`,{...values}).then(res=>{
-          console.log(res)
+          // console.log(res)
           toast.success('class Edited successfully')
         }).catch((err)=>{
           console.log(err,'error in updating')
@@ -57,7 +57,7 @@ const cancelEdit=()=>{
 
       }else{
         axios.post(`${baseApi}/class/create`,{...values}).then(res=>{
-          console.log(res)
+          // console.log(res)
           toast.success('class added successfully')
         }).catch((err)=>{
           console.log(err)

@@ -50,7 +50,7 @@ export default function Login() {
             logIn(user)
           }
 
-          console.log(res);
+          // console.log(res);
           toast.success('login successfully');
           formik.resetForm();
           navigate(`/${role}`)

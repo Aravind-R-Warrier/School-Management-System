@@ -104,7 +104,7 @@ function Dashboard() {
       console.log(er)
     })
   }
-  console.log(studentsDetails)
+  // console.log(studentsDetails)
 
   // fetchStudents
   const fetchExams = async () => {
@@ -129,11 +129,11 @@ function Dashboard() {
     fetchStudentsDetails()
   }, []);
 
-  const pieData = [
-    { id: "Students", value: students },
-    { id: "Classes", value: classes },
-    { id: "Examinations", value: examinations }
-  ];
+  // const pieData = [
+  //   { id: "Students", value: students },
+  //   { id: "Classes", value: classes },
+  //   { id: "Examinations", value: examinations }
+  // ];
 
 
 

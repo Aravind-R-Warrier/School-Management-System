@@ -47,6 +47,7 @@ function App() {
           <Route path='school' element={<ProtectRoute allowRoles={['SCHOOL']}><School /></ProtectRoute> } >
             <Route index element={<Dashboard />} />
             <Route path='dashboard' element={<Dashboard />} />
+            <Route path='school' element={<Dashboard />} />
             <Route path='attendence' element={<AttendenceStudentList />} />
             <Route path='attendence/:id' element={<AttendenceDetails />} />
             <Route path='class' element={<Class />} />
@@ -61,6 +62,7 @@ function App() {
           {/*student */}
           <Route path='student' element={<ProtectRoute allowRoles={['STUDENT']}><Student/></ProtectRoute>}>
             <Route index element={<StudentDetails/>}/>
+            <Route path='student' element={<StudentDetails/>}/>
             <Route path='schedule' element={<ScheduleStudent/>}/>
             <Route path='attendence' element={<AttendenceStudent/>}/>
             <Route path='examinations' element={<ExaminationStudent/>}/>
@@ -70,6 +72,7 @@ function App() {
           {/* teacher */}
           <Route path='teacher' element={<ProtectRoute allowRoles={['TEACHER']}><Teacher/></ProtectRoute>}>
             <Route index element={<TeacherDetails/>}/>
+            <Route path='teacher' element={<TeacherDetails/>}/>
             <Route path='schedule' element={<ScheduleTeacher/>}/>
             <Route path='attendence' element={<AttendenceTeachers/>}/>
             <Route path='examinations' element={<ExaminationTeacher/>}/>

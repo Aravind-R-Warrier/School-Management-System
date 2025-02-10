@@ -13,7 +13,7 @@ import { teacherEditSchema, teacherSchema } from '../../../yupSchema/teacherSche
 
 export default function Teachers() {
 
-  const [classes, setClasses] = React.useState([])
+  // const [classes, setClasses] = React.useState([])
   const [teachers, setTeachers] = React.useState([])
   const [edit, setEdit] = React.useState(false)
   const [editId, setEditId] = React.useState(null)
@@ -121,14 +121,14 @@ export default function Teachers() {
 
 
 
-  // fetching classes
-  const fetchClasses = async () => {
-    axios.get(`${baseApi}/class/all`).then(res => {
-      setClasses(res.data.data)
-    }).catch(er => {
-      console.log(er)
-    })
-  }
+  // // fetching classes
+  // const fetchClasses = async () => {
+  //   axios.get(`${baseApi}/class/all`).then(res => {
+  //     setClasses(res.data.data)
+  //   }).catch(er => {
+  //     console.log(er)
+  //   })
+  // }
 
   // searching
   const [params, setParams] = React.useState({})
@@ -146,7 +146,7 @@ export default function Teachers() {
   const fetchTeachers = async () => {
     axios.get(`${baseApi}/teacher/fetch-with-query`, { params }).then(res => {
       setTeachers(res.data.teachers)
-      console.log(res)
+      // console.log(res)
     }).catch(er => {
       console.log(er)
     })
@@ -206,9 +206,9 @@ export default function Teachers() {
 
 
 
-  React.useEffect(() => {
-    fetchClasses()
-  }, [])
+  // React.useEffect(() => {
+  //   // fetchClasses()
+  // }, [])
 
   React.useEffect(() => {
     fetchTeachers()

@@ -52,7 +52,7 @@ export default function Gallery() {
         //   }
         setSchools(res.data.schools)
          
-          console.log(res);
+          // console.log(res);
         //   toast.success('login successfully');
         //   formik.resetForm();
         })

@@ -13,10 +13,10 @@ function StudentDetails() {
   const[student,setStudent]=useState({})
 
 
-  const fetchTeacherDetails=async()=>{
+  const fetchStudentDetails=async()=>{
     try {
       const response=await  axios.get(`${baseApi}/student/fetch-single`)
-      console.log(response)
+      // console.log(response)
       setStudent(response.data.student)
     } catch (error) {
       
@@ -26,7 +26,7 @@ function StudentDetails() {
   }
 
   useEffect(()=>{
- fetchTeacherDetails()
+ fetchStudentDetails()
   },[])
   return (
     <>

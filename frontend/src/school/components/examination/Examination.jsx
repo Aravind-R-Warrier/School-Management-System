@@ -46,7 +46,7 @@ export default function Examination() {
           URL = `${baseApi}/examination/update/${editId}`
         }
         const response = await axios.post(URL, { date: value.date, subject: value.subject, classId: selectedClass, examType: value.examType })
-        console.log(response, 'examination created')
+        // console.log(response, 'examination created')
         toast.success(response.data.message)
         formik.resetForm()
         fetchExaminations()
@@ -86,7 +86,7 @@ export default function Examination() {
 
     try {
       const response = await axios.get(`${baseApi}/examination/class/${selectedClass}`)
-      console.log('exams', response)
+      // console.log('exams', response)
       setExaminations(response.data.examination)
     } catch (error) {
       console.log('error in fetching exams', error)
@@ -124,7 +124,12 @@ export default function Examination() {
 
   React.useEffect(() => {
     fetchSubject()
-    fetchExaminations()
+  }, [selectedClass])
+
+  React.useEffect(() => {
+    if(selectedClass){
+      fetchExaminations()
+    }
   }, [selectedClass])
 
   React.useEffect(() => {

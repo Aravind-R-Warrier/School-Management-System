@@ -50,7 +50,7 @@ function Notice() {
       // api for creation and edit
       if (edit) {
         axios.patch(`${baseApi}/notice/update/${editId}`, { ...values }).then(res => {
-          console.log(res)
+          // console.log(res)
           toast.success('notice Edited successfully')
         }).catch((err) => {
           console.log(err, 'error in updating')
@@ -60,7 +60,7 @@ function Notice() {
 
       } else {
         axios.post(`${baseApi}/notice/create`, { ...values }).then(res => {
-          console.log(res)
+          // console.log(res)
           toast.success('notice added successfully')
         }).catch((err) => {
           console.log(err)

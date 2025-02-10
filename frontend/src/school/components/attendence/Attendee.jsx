@@ -42,7 +42,7 @@ const fetchClassDetails=async()=>{
     if(classId){
       const response=await axios.get(`${baseApi}/class/single/${classId}`)
       setAttendee(response.data.data.attendee?response.data.data.attendee:null)
-      console.log(response)
+      // console.log(response)
       }
     
   } catch (error) {
