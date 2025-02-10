@@ -35,7 +35,7 @@ function NoticeStudent() {
               <Box component={'div'} sx={{maxWidth:'600px'}}>
                 <Typography sx={{color:'black'}}  variant='h5'>{item.title}</Typography>
                 <Typography sx={{fontSize:'16px'}} variant='h6'>{item.message}</Typography>
-                <Typography sx={{color:'darkBrown'}} variant='h6'>For:({item.audience})</Typography>
+                {/* <Typography sx={{color:'darkBrown'}} variant='h6'>For:({item.audience})</Typography> */}
                 </Box>
             </Paper>
           })
