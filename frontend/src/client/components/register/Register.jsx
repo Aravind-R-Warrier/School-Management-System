@@ -73,6 +73,7 @@ export default function Register() {
   });
 
   return (
+    <>
     <Box
       component="div"
       sx={{
@@ -246,5 +247,6 @@ export default function Register() {
         </Box>
       </Paper>
     </Box>
+    </>
   );
 }

@@ -18,7 +18,7 @@ function Footer() {
       <img
         src="https://uxwing.com/wp-content/themes/uxwing/download/education-school/graduation-cap-icon.png"
         alt="School Logo"
-        style={{ height: '50px', padding: '4px', marginBottom: '10px',position:'absolute',left:'639px',bottom:'-586px' }}
+        style={{ height: '30px', padding: '4px',}}
       />
       <Typography color='black' variant='h5' sx={{ fontWeight: 'bold' }}>School Breeze</Typography>
       <Typography color='black' variant='body2'>Copyright &copy; 2055 | All Rights Reserved</Typography>
