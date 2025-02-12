@@ -38,33 +38,29 @@ export default function Gallery() {
       };
 
     //   apicall
-    React.useEffect(()=>{
-        axios
-        .get(`${baseApi}/school/all`)
-        .then((res) => {
-        //   const token=res.headers.get('Autharisation')
-        //   if(token){
-        //     sessionStorage.setItem('token',token)
-        //   }
-        //   const user=res.data.user
-        //   if(user){
-        //     sessionStorage.setItem('user',JSON.stringify(user))
-        //   }
-        setSchools(res.data.schools)
-         
-          // console.log(res);
-        //   toast.success('login successfully');
-        //   formik.resetForm();
-        })
-        .catch((err) => {
-          console.log(err);
-        //   toast.error(err.response.data.message);
-        });
+    const [loading, setLoading] = React.useState(true);
 
-    },[])
+React.useEffect(() => {
+  setLoading(true);
+  axios
+    .get(`${baseApi}/school/all`)
+    .then((res) => {
+      setSchools(res.data.schools);
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      setLoading(false);
+    });
+}, []);
+
 
   return (
     <Box>
+      {loading ? (
+  <Typography variant="h6" textAlign="center">Loading schools...</Typography>
+):
     <ImageList sx={{ width:'100%', height: 'auto'}}>
       {schools.map((school) => (
         <ImageListItem key={school.school_image}>
@@ -82,7 +78,7 @@ export default function Gallery() {
           />
         </ImageListItem>
       ))}
-    </ImageList>
+    </ImageList>}
     
 {/* Modal */}
 <Modal
