@@ -108,12 +108,12 @@ export default function Login() {
           </Typography>
 
           <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Role</InputLabel>
+            <InputLabel  id="demo-simple-select-label ">Role</InputLabel>
             <Select
               value={role}
               onChange={e => setRole(e.target.value)}
               displayEmpty
-              sx={{ color: '#333333', backgroundColor: '#FFFFFF' }}
+              sx={{ color: '#333333', backgroundColor: '#FFFFFF',marginTop:'10px' }}
             >
               <MenuItem value={'Student'}>Student</MenuItem>
               <MenuItem value={'Teacher'}>Teacher</MenuItem>
