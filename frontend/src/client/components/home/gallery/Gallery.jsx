@@ -40,20 +40,21 @@ export default function Gallery() {
     //   apicall
     const [loading, setLoading] = React.useState(true);
 
-React.useEffect(() => {
-  setLoading(true);
-  axios
-    .get(`${baseApi}/school/all`)
-    .then((res) => {
-      setSchools(res.data.schools);
-    })
-    .catch((err) => {
-      console.error(err);
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-}, []);
+    React.useEffect(() => {
+      setLoading(true);
+      axios
+        .get(`${baseApi}/school/all?page=1&limit=10`)
+        .then((res) => {
+          setSchools(res.data.schools);
+        })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }, []);
+    
 
 
   return (

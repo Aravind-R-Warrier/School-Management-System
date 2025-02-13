@@ -99,12 +99,18 @@ module.exports = {
 
     getAllSchool: async (req, res) => {
         try {
-            const schools = await School.find().select(['-password', '-id', '-email', '-owner_name', '-createdAt']);
-            res.status(200).json({ success: true, message: 'success fetching schools', schools })
+            const { page = 1, limit = 10 } = req.query;
+            const schools = await School.find()
+                .select(['-password', '-id', '-email', '-owner_name', '-createdAt'])
+                .skip((page - 1) * limit)
+                .limit(Number(limit));
+    
+            res.status(200).json({ success: true, message: 'Success fetching schools', schools });
         } catch (error) {
-            res.status(500).json({ success: false, message: 'internal server error school all data', error })
+            res.status(500).json({ success: false, message: 'Internal server error', error });
         }
-    },
+    }
+    ,
 
     getSchoolOwnData: async (req, res) => {
         try {
