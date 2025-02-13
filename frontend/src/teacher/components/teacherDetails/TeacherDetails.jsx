@@ -30,7 +30,6 @@ function TeacherDetails() {
   },[])
   return (
     <>
-    <h2>Teacher Details</h2>
    <Box component={'div'} sx={{display:'flex',justifyContent:'center'}}>
    <CardMedia
           component="img"
@@ -39,9 +38,11 @@ function TeacherDetails() {
           alt="teacher"
         />
    </Box>
-    {teacher &&  <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableBody>
+   <h3 style={{textAlign:'center',fontFamily:'verdana'}}>Teacher Details</h3>
+   <Box component={'div'} sx={{display:'flex',justifyContent:'center'}}>
+    {teacher &&  <TableContainer sx={{width:'900px',borderRadius:'10px',boxShadow:'black 2 4 2'}} component={Paper} >
+        <Table    aria-label="simple table">
+          <TableBody >
 
             <TableRow
             >
@@ -81,7 +82,8 @@ function TeacherDetails() {
           </TableBody>
         </Table>
       </TableContainer>}
-     
+      </Box>
+
     </>
   )
 }

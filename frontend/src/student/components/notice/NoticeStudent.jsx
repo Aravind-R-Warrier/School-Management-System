@@ -31,9 +31,9 @@ function NoticeStudent() {
         {
 
           notices && notices.map(item => {
-            return <Paper key={item._id} sx={{ border: '1px black solid', margin: '20px', p: 1}}>
+            return <Paper key={item._id} sx={{ border: '1px grey solid', margin: '20px', p: 1}}>
               <Box component={'div'} sx={{maxWidth:'600px'}}>
-                <Typography sx={{color:'black'}}  variant='h5'>{item.title}</Typography>
+                <Typography sx={{color:'grey'}}  variant='h5'>{item.title}</Typography>
                 <Typography sx={{fontSize:'16px'}} variant='h6'>{item.message}</Typography>
                 {/* <Typography sx={{color:'darkBrown'}} variant='h6'>For:({item.audience})</Typography> */}
                 </Box>
