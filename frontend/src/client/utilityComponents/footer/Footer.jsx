@@ -18,7 +18,7 @@ function Footer() {
       <img
         src="https://static.vecteezy.com/system/resources/thumbnails/008/040/410/small_2x/school-logo-design-template-free-vector.jpg"
         alt="School Logo"
-        style={{ height: '30px', padding: '4px',}}
+        style={{ height: '50px', padding: '3px',}}
       />
       <Typography color='black' variant='h5' sx={{ fontWeight: 'bold' }}>School Breeze</Typography>
       <Typography color='black' variant='body2'>Copyright &copy; 2055 | All Rights Reserved</Typography>
