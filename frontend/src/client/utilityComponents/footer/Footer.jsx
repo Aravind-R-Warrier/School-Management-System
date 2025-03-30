@@ -16,7 +16,7 @@ function Footer() {
       }}
     >
       <img
-        src="https://uxwing.com/wp-content/themes/uxwing/download/education-school/graduation-cap-icon.png"
+        src="https://static.vecteezy.com/system/resources/thumbnails/008/040/410/small_2x/school-logo-design-template-free-vector.jpg"
         alt="School Logo"
         style={{ height: '30px', padding: '4px',}}
       />
