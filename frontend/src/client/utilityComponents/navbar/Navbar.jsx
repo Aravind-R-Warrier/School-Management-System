@@ -61,7 +61,7 @@ function Navbar() {
         <Toolbar disableGutters sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
           {/* Animated Logo */}
           <motion.img
-            src="https://uxwing.com/wp-content/themes/uxwing/download/education-school/graduation-cap-icon.png"
+            src="https://static.vecteezy.com/system/resources/thumbnails/008/040/410/small_2x/school-logo-design-template-free-vector.jpg"
             alt="School Logo"
             style={{ height: '50px', padding: '4px', marginRight: '2px' }}
             initial={{ rotate: 0 }}
