@@ -60,14 +60,10 @@ function Navbar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: 'space-between', alignItems: 'center' }}>
           {/* Animated Logo */}
-          <motion.img
+          <img
             src="https://static.vecteezy.com/system/resources/thumbnails/008/040/410/small_2x/school-logo-design-template-free-vector.jpg"
             alt="School Logo"
             style={{ height: '50px', padding: '4px', marginRight: '2px' }}
-            initial={{ rotate: 0 }}
-            animate={{ rotate: [0, 10, -10, 0] }} // Subtle rotation animation
-            transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
-            whileHover={{ scale: 1.1, boxShadow: '0px 0px 10px rgba(244, 162, 97, 0.8)' }}
           />
 
           <Typography
